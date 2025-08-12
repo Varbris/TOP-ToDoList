@@ -1,3 +1,5 @@
+import { addTaskModal } from "./modal.js";
+
 export function header() {
   const headerContainer = document.createElement("header");
   const navBar = document.createElement("nav");
@@ -11,12 +13,19 @@ export function header() {
     </div>
     <ul>
       <li class="nav-item">
-        <button class="add-task-button">Add Task</button>
+        <button class="add-task-button" id="addTaskButton">Add Task</button>
       </li>
       <li class="nav-item"><a href="" class="nav-link">Your Todos</a></li>
       <li class="nav-item"><a href="" class="nav-link">Your Project</a></li>
     </ul>
   `;
   headerContainer.appendChild(navBar);
+  navBar.addEventListener("click", function (event) {
+    if (event.target.id === "addTaskButton") {
+      const modal = addTaskModal();
+      headerContainer.appendChild(modal);
+      modal.showModal();
+    }
+  });
   return headerContainer;
 }
