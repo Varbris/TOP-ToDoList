@@ -20,10 +20,10 @@ export function header() {
     </ul>
   `;
   headerContainer.appendChild(navBar);
+  const modal = addTaskModal();
+  headerContainer.appendChild(modal);
   navBar.addEventListener("click", function (event) {
     if (event.target.id === "addTaskButton") {
-      const modal = addTaskModal();
-      headerContainer.appendChild(modal);
       modal.showModal();
     }
   });
