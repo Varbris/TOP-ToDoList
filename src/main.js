@@ -1,7 +1,10 @@
 function main() {
+  const body = document.getElementById("body");
   const mainContainer = document.createElement("main");
   const articleContainer = document.createElement("article");
   articleContainer.id = "article";
+  mainContainer.appendChild(articleContainer);
+  body.appendChild(mainContainer);
 
   if (localStorage.length === 0) {
     articleContainer.innerHTML = `
@@ -10,9 +13,6 @@ function main() {
   } else {
     updateArticle();
   }
-
-  mainContainer.appendChild(articleContainer);
-  return mainContainer;
 }
 
 function updateArticle() {

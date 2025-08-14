@@ -1,6 +1,7 @@
 import { addTaskModal } from "./modal.js";
 
 export function header() {
+  const body = document.getElementById("body");
   const headerContainer = document.createElement("header");
   const navBar = document.createElement("nav");
   navBar.classList.add("navbar");
@@ -27,5 +28,7 @@ export function header() {
       modal.showModal();
     }
   });
-  return headerContainer;
+
+  console.log(headerContainer);
+  body.appendChild(headerContainer);
 }
