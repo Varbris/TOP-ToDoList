@@ -1,18 +1,28 @@
-import { addTaskModal } from "./modal";
-
-export function main() {
+function main() {
   const mainContainer = document.createElement("main");
   const articleContainer = document.createElement("article");
-  const myTask = [];
+  articleContainer.id = "article";
 
   if (localStorage.length === 0) {
     articleContainer.innerHTML = `
   Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit quas adipisci necessitatibus sit consequatur ut veniam. Eum, expedita ipsum? Saepe quam placeat velit doloribus sunt itaque assumenda earum sit, minima reiciendis et. Beatae magnam ullam ducimus eveniet vitae eos consequuntur consectetur, sunt voluptate excepturi ex? Iusto tenetur quam doloribus, perferendis quasi adipisci animi ut deleniti culpa placeat, sunt consectetur distinctio, ullam dolore at consequatur itaque. Voluptatibus fugit enim soluta inventore veritatis officiis fugiat exercitationem provident architecto, et molestias placeat. Ex placeat, quod quibusdam minima a obcaecati nobis nostrum unde et eaque impedit consequuntur earum delectus eius ea iure possimus assumenda.    
 `;
   } else {
-    const data = localStorage;
+    updateArticle();
   }
 
   mainContainer.appendChild(articleContainer);
   return mainContainer;
 }
+
+function updateArticle() {
+  let article = document.getElementById("article");
+  article.innerHTML = "";
+  const data = JSON.parse(localStorage.getItem("myTask"));
+  data.forEach(function (item) {
+    const titleH1 = document.createElement("h1");
+    titleH1.innerText = item.title;
+    article.appendChild(titleH1);
+  });
+}
+export { main, updateArticle };
