@@ -16,13 +16,24 @@ function main() {
 }
 
 function updateArticle() {
-  let article = document.getElementById("article");
+  const article = document.getElementById("article");
+  article.classList.add("article");
   article.innerHTML = "";
   const data = JSON.parse(localStorage.getItem("myTask"));
   data.forEach(function (item) {
     const titleH1 = document.createElement("h1");
+    const card = document.createElement("div");
+    const cardHeader = document.createElement("div");
+    const cardBody = document.createElement("div");
+    cardHeader.setAttribute("class", "card-header");
+    card.setAttribute("class", "card");
+    cardBody.setAttribute("class", "card-body");
     titleH1.innerText = item.title;
-    article.appendChild(titleH1);
+    cardBody.innerText = item.description;
+    cardHeader.appendChild(titleH1);
+    card.appendChild(cardHeader);
+    card.appendChild(cardBody);
+    article.appendChild(card);
   });
 }
 export { main, updateArticle };

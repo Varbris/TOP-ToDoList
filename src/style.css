@@ -120,5 +120,18 @@ header {
 }
 
 main {
-  padding: 5vw;
+  padding: 2vw;
+}
+
+.card {
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
+.article {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(1fr, auto);
+  gap: 10px;
 }
