@@ -25,11 +25,15 @@ function updateArticle() {
     const card = document.createElement("div");
     const cardHeader = document.createElement("div");
     const cardBody = document.createElement("div");
+    const pDesc = document.createElement("p");
+    const pDate = document.createElement("p");
     cardHeader.setAttribute("class", "card-header");
     card.setAttribute("class", "card");
     cardBody.setAttribute("class", "card-body");
     titleH1.innerText = item.title;
-    cardBody.innerText = item.description;
+    pDesc.innerText = item.description;
+    pDate.innerText = item.date;
+    cardBody.append(pDesc, pDate);
     cardHeader.appendChild(titleH1);
     card.appendChild(cardHeader);
     card.appendChild(cardBody);

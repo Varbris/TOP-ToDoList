@@ -8,6 +8,7 @@ function addTaskModal() {
   const myForm = testForm.myForm;
   testForm.addInputField("text", "title");
   testForm.addInputField("text", "description");
+  testForm.addInputField("date", "Due");
   testForm.addButton("add-task", "addTask", "Add");
   testForm.addButton("cancel-button", "cancelButton", "Cancel");
   modal.appendChild(testForm.myForm);
@@ -21,9 +22,12 @@ function addTaskModal() {
       const myStorage = JSON.parse(localStorage.getItem("myTask"));
       let title = document.getElementById("title");
       let description = document.getElementById("description");
+      let date = document.getElementById("Due");
+      console.log(date);
       const myTask = {
         title: title.value,
         description: description.value,
+        date: date.value,
       };
       myStorage.push(myTask);
       localStorage.setItem("myTask", JSON.stringify(myStorage));

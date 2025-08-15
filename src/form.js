@@ -18,6 +18,7 @@ export default class Form {
     const inputField = document.createElement("input");
     inputField.setAttribute("type", type);
     inputField.setAttribute("id", title);
+    inputField.setAttribute("name", title);
     div.appendChild(label);
     div.appendChild(inputField);
 
