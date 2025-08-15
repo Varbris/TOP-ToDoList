@@ -4,7 +4,8 @@ function addTaskModal() {
   const modal = document.createElement("dialog");
   const form = document.createElement("form");
   const addButton = document.createElement("button");
-  const article = document.getElementById("article");
+  const cancelButton = document.createElement("button");
+  cancelButton.innerText = "Cancel";
   addButton.id = "formAddTask";
   addButton.innerText = "add Task";
   form.innerHTML = /* HTML */ `
@@ -30,7 +31,13 @@ function addTaskModal() {
     updateArticle();
     modal.close();
   });
+
+  cancelButton.addEventListener("click", function (event) {
+    event.preventDefault();
+    modal.close();
+  });
   form.append(addButton);
+  form.append(cancelButton);
   modal.appendChild(form);
 
   return modal;

@@ -12,15 +12,20 @@ export function header() {
         <h1>To Do List</h1>
       </a>
     </div>
-    <ul>
-      <li class="nav-item">
-        <button class="add-task-button" id="addTaskButton">Add Task</button>
-      </li>
-      <li class="nav-item"><a href="" class="nav-link">Your Todos</a></li>
-      <li class="nav-item"><a href="" class="nav-link">Your Project</a></li>
-    </ul>
   `;
+  const navbarList = document.createElement("ul");
+  navbarList.appendChild(
+    createNavLink(
+      "nav-item",
+      createButton("add-task-button", "addTaskButton", "Add Task")
+    )
+  );
+  navbarList.appendChild(createNavLink("nav-item", null, "Your Todos"));
+  navbarList.appendChild(createNavLink("nav-item", null, "Your Project"));
+
+  navBar.appendChild(navbarList);
   headerContainer.appendChild(navBar);
+
   const modal = addTaskModal();
   headerContainer.appendChild(modal);
   navBar.addEventListener("click", function (event) {
@@ -29,6 +34,25 @@ export function header() {
     }
   });
 
-  console.log(headerContainer);
   body.appendChild(headerContainer);
+}
+
+function createNavLink(navLinkClass, navLinkHtml = null, navLinkInner = null) {
+  const navlink = document.createElement("li");
+  navlink.classList.add(navLinkClass);
+  if (navLinkHtml === null) {
+    navlink.innerText = navLinkInner;
+    return navlink;
+  } else {
+    navlink.appendChild(navLinkHtml);
+  }
+  return navlink;
+}
+
+function createButton(buttonClass, buttonId, buttonText) {
+  const button = document.createElement("button");
+  button.classList.add(buttonClass);
+  button.id = buttonId;
+  button.innerText = buttonText;
+  return button;
 }
