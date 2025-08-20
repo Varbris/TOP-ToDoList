@@ -1,3 +1,5 @@
+const { format } = require("date-fns");
+
 function main() {
   const body = document.getElementById("body");
   const mainContainer = document.createElement("main");
@@ -32,7 +34,11 @@ function updateArticle() {
     cardBody.setAttribute("class", "card-body");
     titleH1.innerText = item.title;
     pDesc.innerText = item.description;
-    pDate.innerText = item.date;
+    console.log(item.date[0], item.date[1] - 1, item.date[2]);
+    pDate.innerText = format(
+      new Date(item.date[0], item.date[1] - 1, item.date[2]),
+      "y-MMM-d"
+    );
     cardBody.append(pDesc, pDate);
     cardHeader.appendChild(titleH1);
     card.appendChild(cardHeader);

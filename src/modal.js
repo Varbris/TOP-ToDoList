@@ -23,11 +23,14 @@ function addTaskModal() {
       let title = document.getElementById("title");
       let description = document.getElementById("description");
       let date = document.getElementById("Due");
-      console.log(date);
+      let curDate = date.value.split("-");
+      curDate = curDate.map(function (item) {
+        return parseInt(item);
+      });
       const myTask = {
         title: title.value,
         description: description.value,
-        date: date.value,
+        date: curDate,
       };
       myStorage.push(myTask);
       localStorage.setItem("myTask", JSON.stringify(myStorage));
