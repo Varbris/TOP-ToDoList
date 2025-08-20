@@ -9,6 +9,14 @@ function addTaskModal() {
   testForm.addInputField("text", "title");
   testForm.addInputField("text", "description");
   testForm.addInputField("date", "Due");
+  const option = [
+    testForm.addDropdownOption("YourTodos", "Your ToDos"),
+    testForm.addDropdownOption("YourTodos", "Your shit"),
+    testForm.addDropdownOption("YourTodos", "Your dad"),
+    testForm.addDropdownOption("YourTodos", "Your mom"),
+  ];
+  testForm.addDropDown("Add To: ", option);
+
   testForm.addButton("add-task", "addTask", "Add");
   testForm.addButton("cancel-button", "cancelButton", "Cancel");
   modal.appendChild(testForm.myForm);
