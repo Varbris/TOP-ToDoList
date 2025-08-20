@@ -18,4 +18,30 @@ function createButton(buttonClass, buttonId, buttonText) {
   return button;
 }
 
-export { createButton, createNavLink };
+function createCard(title, description) {
+  const titleH1 = document.createElement("h1");
+  const card = document.createElement("div");
+  const cardHeader = document.createElement("div");
+  const cardBody = document.createElement("div");
+  const pDesc = document.createElement("p");
+
+  cardHeader.setAttribute("class", "card-header");
+  card.setAttribute("class", "card");
+  cardBody.setAttribute("class", "card-body");
+  titleH1.innerText = title;
+  pDesc.innerText = description;
+  cardBody.append(pDesc);
+  cardHeader.appendChild(titleH1);
+  card.appendChild(cardHeader);
+  card.appendChild(cardBody);
+
+  const addNewItem = function (element, itemInner) {
+    const newItem = document.createElement(element);
+    newItem.innerText = itemInner;
+    cardBody.appendChild(newItem);
+  };
+
+  return { card: card, addNewItem: addNewItem };
+}
+
+export { createButton, createNavLink, createCard };

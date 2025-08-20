@@ -1,3 +1,5 @@
+import { createCard } from "./create";
+
 const { format } = require("date-fns");
 
 function main() {
@@ -23,27 +25,12 @@ function updateArticle() {
   article.innerHTML = "";
   const data = JSON.parse(localStorage.getItem("myTask"));
   data.forEach(function (item) {
-    const titleH1 = document.createElement("h1");
-    const card = document.createElement("div");
-    const cardHeader = document.createElement("div");
-    const cardBody = document.createElement("div");
-    const pDesc = document.createElement("p");
-    const pDate = document.createElement("p");
-    cardHeader.setAttribute("class", "card-header");
-    card.setAttribute("class", "card");
-    cardBody.setAttribute("class", "card-body");
-    titleH1.innerText = item.title;
-    pDesc.innerText = item.description;
-    console.log(item.date[0], item.date[1] - 1, item.date[2]);
-    pDate.innerText = format(
-      new Date(item.date[0], item.date[1] - 1, item.date[2]),
-      "y-MMM-d"
+    const card = createCard(item.title, item.description);
+    card.addNewItem(
+      "p",
+      format(new Date(item.date[0], item.date[1] - 1, item.date[2]), "y-MMM-d")
     );
-    cardBody.append(pDesc, pDate);
-    cardHeader.appendChild(titleH1);
-    card.appendChild(cardHeader);
-    card.appendChild(cardBody);
-    article.appendChild(card);
+    article.appendChild(card.card);
   });
 }
 export { main, updateArticle };
