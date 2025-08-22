@@ -25,15 +25,19 @@ export default class Form {
     this.form.appendChild(div);
   }
 
-  addDropDown(title, selectOption) {
+  addDropDown(title, selectOption, id) {
+    if (!Array.isArray(selectOption)) {
+      console.warn("the second parameter for this method, expected array data");
+      return;
+    }
     const div = document.createElement("div");
     div.classList.add("form-row");
     const label = document.createElement("label");
-    label.setAttribute("for", title);
+    label.setAttribute("for", id);
     label.innerText = title;
     const select = document.createElement("select");
-    select.setAttribute("id", title);
-    select.setAttribute("name", title);
+    select.setAttribute("id", id);
+    select.setAttribute("name", id);
     selectOption.forEach((element) => {
       select.append(element);
     });

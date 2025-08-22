@@ -11,11 +11,9 @@ function addTaskModal() {
   testForm.addInputField("date", "Due");
   const option = [
     testForm.addDropdownOption("YourTodos", "Your ToDos"),
-    testForm.addDropdownOption("YourTodos", "Your shit"),
-    testForm.addDropdownOption("YourTodos", "Your dad"),
-    testForm.addDropdownOption("YourTodos", "Your mom"),
+    testForm.addDropdownOption("YourProject", "Your Project"),
   ];
-  testForm.addDropDown("Add To: ", option);
+  testForm.addDropDown("Add To: ", option, "projectDropDown");
 
   testForm.addButton("add-task", "addTask", "Add");
   testForm.addButton("cancel-button", "cancelButton", "Cancel");
@@ -24,26 +22,39 @@ function addTaskModal() {
   myForm.addEventListener("click", function (event) {
     if (event.target.id === "addTask") {
       event.preventDefault();
-      if (localStorage.length === 0) {
-        localStorage.setItem("myTask", JSON.stringify([]));
+      const addToProject = document.getElementById("projectDropDown");
+      console.log(
+        "is project exist: ",
+        localStorage.hasOwnProperty(addToProject.value),
+        addToProject.value
+      );
+      if (
+        localStorage.length === 0 ||
+        !localStorage.hasOwnProperty(addToProject.value)
+      ) {
+        localStorage.setItem(addToProject.value, JSON.stringify([]));
       }
-      const myStorage = JSON.parse(localStorage.getItem("myTask"));
+      const myStorage = JSON.parse(localStorage.getItem(addToProject.value));
+
       let title = document.getElementById("title");
       let description = document.getElementById("description");
       let date = document.getElementById("Due");
-      let curDate = date.value.split("-");
-      curDate = curDate.map(function (item) {
-        return parseInt(item);
-      });
+      if (date.value === null || date.value === "") {
+        date = "No Date";
+      } else {
+        date = date.value.split("-").map(function (item) {
+          return parseInt(item);
+        });
+      }
       const myTask = {
         title: title.value,
         description: description.value,
-        date: curDate,
+        date: date,
       };
       myStorage.push(myTask);
-      localStorage.setItem("myTask", JSON.stringify(myStorage));
+      localStorage.setItem(addToProject.value, JSON.stringify(myStorage));
       let test = document.getElementById("article");
-      updateArticle();
+      updateArticle(window.location.pathname);
       modal.close();
     }
 

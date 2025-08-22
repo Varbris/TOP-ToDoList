@@ -10,6 +10,20 @@ function createNavLink(navLinkClass, navLinkHtml = null, navLinkInner = null) {
   return navlink;
 }
 
+function createAnchor(anchorName, link) {
+  const element = document.createElement("a");
+  element.setAttribute("href", link);
+  element.innerText = anchorName;
+  return element;
+}
+
+function createCustomElement(tagName, inner, className) {
+  const element = document.createElement(tagName);
+  element.classList.add(className);
+  element.appendChild(inner);
+  return element;
+}
+
 function createButton(buttonClass, buttonId, buttonText) {
   const button = document.createElement("button");
   button.classList.add(buttonClass);
@@ -44,4 +58,10 @@ function createCard(title, description) {
   return { card: card, addNewItem: addNewItem };
 }
 
-export { createButton, createNavLink, createCard };
+export {
+  createButton,
+  createNavLink,
+  createAnchor,
+  createCard,
+  createCustomElement,
+};
