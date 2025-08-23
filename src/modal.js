@@ -31,6 +31,10 @@ function addTaskModal() {
     if (event.target.id === "addTask") {
       event.preventDefault();
       const addToProject = document.getElementById("projectDropDown");
+      let title = document.getElementById("title");
+      let description = document.getElementById("description");
+      let date = document.getElementById("Due");
+      const priority = document.getElementById("priorityDropDown");
       console.log(
         "is project exist: ",
         localStorage.hasOwnProperty(addToProject.value),
@@ -44,9 +48,6 @@ function addTaskModal() {
       }
       const myStorage = JSON.parse(localStorage.getItem(addToProject.value));
 
-      let title = document.getElementById("title");
-      let description = document.getElementById("description");
-      let date = document.getElementById("Due");
       if (date.value === null || date.value === "") {
         date = "No Date";
       } else {
@@ -58,6 +59,7 @@ function addTaskModal() {
         title: title.value,
         description: description.value,
         date: date,
+        priority: priority.value,
       };
       myStorage.push(myTask);
       localStorage.setItem(addToProject.value, JSON.stringify(myStorage));
