@@ -30,7 +30,9 @@ export function header() {
   navbarList.appendChild(
     createNavLink("nav-item", createAnchor("Your Todos", "/YourTodos"))
   );
-  navbarList.appendChild(createNavLink("nav-item", null, "Your Project"));
+  navbarList.appendChild(
+    createNavLink("nav-item", createAnchor("Your Project", "/YourProject"))
+  );
 
   navBar.appendChild(navbarList);
   headerContainer.appendChild(navBar);

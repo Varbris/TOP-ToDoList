@@ -21,12 +21,17 @@ function main() {
 
 function updateArticle(currentPath) {
   currentPath = currentPath.replace("/", "");
-  console.log("current path bros", currentPath);
+  const data = JSON.parse(localStorage.getItem(currentPath));
+
+  //!fix this when data is missing from local storage
+  if (data === null) {
+    return 0;
+  }
   if (currentPath !== "/" && currentPath !== "") {
     const article = document.getElementById("article");
     article.classList.add("article");
     article.innerHTML = "";
-    const data = JSON.parse(localStorage.getItem(currentPath));
+
     data.forEach(function (item) {
       let date =
         item.date === "No Date"

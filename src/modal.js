@@ -9,15 +9,23 @@ function addTaskModal() {
   testForm.addInputField("text", "title");
   testForm.addInputField("text", "description");
   testForm.addInputField("date", "Due");
-  const option = [
+  const projectOption = [
     testForm.addDropdownOption("YourTodos", "Your ToDos"),
     testForm.addDropdownOption("YourProject", "Your Project"),
   ];
-  testForm.addDropDown("Add To: ", option, "projectDropDown");
+  testForm.addDropDown("Add To: ", projectOption, "projectDropDown");
+
+  const priorityOption = [
+    testForm.addDropdownOption("Priority1", "Priority 1"),
+    testForm.addDropdownOption("Priority2", "Priority 2"),
+    testForm.addDropdownOption("Priority3", "Priority 3"),
+    testForm.addDropdownOption("Priority4", "Priority 4"),
+  ];
+  testForm.addDropDown("Priority: ", priorityOption, "priorityDropDown");
 
   testForm.addButton("add-task", "addTask", "Add");
   testForm.addButton("cancel-button", "cancelButton", "Cancel");
-  modal.appendChild(testForm.myForm);
+  modal.appendChild(myForm);
 
   myForm.addEventListener("click", function (event) {
     if (event.target.id === "addTask") {
