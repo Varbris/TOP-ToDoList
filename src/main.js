@@ -42,6 +42,7 @@ function updateArticle(currentPath) {
             );
       const card = createCard(item.title, item.description);
       card.addNewItem("p", date);
+      card.addNewItem("p", item.priority);
       article.appendChild(card.card);
     });
   }
