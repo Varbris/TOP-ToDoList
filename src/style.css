@@ -91,6 +91,13 @@ header {
     rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
 }
 
+.navbar {
+  position: sticky;
+  right: 0;
+  top: 0;
+  overflow: hidden;
+}
+
 .add-task-button {
   background-color: none;
   background: none;
