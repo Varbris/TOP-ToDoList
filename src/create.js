@@ -23,17 +23,17 @@ function createCustomElement(tagName) {
   const element = document.createElement(tagName);
 
   const addInner = function (innerHTML) {
-    if (typeof innerHTML === "string" || innerHTML instanceof String) {
-      element.innerText = innerHTML;
-    } else {
-      element.appendChild(innerHTML);
-    }
+    element.innerText = innerHTML;
+  };
+
+  const addChild = function (node) {
+    element.appendChild(node);
   };
 
   const addAttribute = function (attributeName, attributeValue) {
     element.setAttribute(attributeName, attributeValue);
   };
-  return { element, addAttribute, addInner };
+  return { element, addAttribute, addInner, addChild };
 }
 
 function createButton(buttonClass, buttonId, buttonText) {

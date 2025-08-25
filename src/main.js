@@ -47,7 +47,9 @@ function updateArticle(currentPath) {
       const div = createCustomElement("div");
       div.addAttribute("class", "priority-box");
       div.addInner((document.createElement("p").innerText = item.priority));
-      div.addInner((document.createElement("p").innerText = currentPath));
+      const p = document.createElement("p");
+      p.innerText = currentPath;
+      div.addChild(p);
       href.addAttribute("href", "https://google.com");
       href.addInner(item.priority);
       card.appendBody(pDate.element);
