@@ -61,21 +61,11 @@ function createCard(title, description) {
   card.appendChild(cardHeader);
   card.appendChild(cardBody);
 
-  const addNewInner = function (element, itemInner) {
-    const newItem = document.createElement(element);
-    newItem.innerText = itemInner;
-    cardBody.appendChild(newItem);
+  const appendBody = function (element) {
+    cardBody.appendChild(element);
   };
 
-  const addNodeChild = function (element, itemInner) {
-    {
-      const newItem = document.createElement(element);
-      newItem.appendChild(itemInner);
-      cardBody.appendChild(newItem);
-    }
-  };
-
-  return { card: card, addNewInner, addNodeChild };
+  return { card: card, appendBody };
 }
 
 export {

@@ -40,12 +40,19 @@ function updateArticle(currentPath) {
               new Date(item.date[0], item.date[1] - 1, item.date[2]),
               "y-MMM-d"
             );
+      const pDate = createCustomElement("p");
+      pDate.addInner(date);
       const card = createCard(item.title, item.description);
       const href = createCustomElement("a");
-      href.addInner("awiwkok");
+      const div = createCustomElement("div");
+      div.addAttribute("class", "priority-box");
+      div.addInner((document.createElement("p").innerText = item.priority));
+      div.addInner((document.createElement("p").innerText = currentPath));
       href.addAttribute("href", "https://google.com");
-      card.addNewInner("p", "awikwok");
-      card.addNodeChild("div", href.element);
+      href.addInner(item.priority);
+      card.appendBody(pDate.element);
+      card.appendBody(div.element);
+
       article.appendChild(card.card);
     });
   }
