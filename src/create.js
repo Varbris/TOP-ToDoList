@@ -1,3 +1,5 @@
+import { add } from "date-fns";
+
 function createNavLink(navLinkClass, navLinkHtml = null, navLinkInner = null) {
   const navlink = document.createElement("li");
   navlink.classList.add(navLinkClass);
@@ -17,11 +19,21 @@ function createAnchor(anchorName, link) {
   return element;
 }
 
-function createCustomElement(tagName, inner, className) {
+function createCustomElement(tagName) {
   const element = document.createElement(tagName);
-  element.classList.add(className);
-  element.appendChild(inner);
-  return element;
+
+  const addInner = function (innerHTML) {
+    if (typeof innerHTML === "string" || innerHTML instanceof String) {
+      element.innerText = innerHTML;
+    } else {
+      element.appendChild(innerHTML);
+    }
+  };
+
+  const addAttribute = function (attributeName, attributeValue) {
+    element.setAttribute(attributeName, attributeValue);
+  };
+  return { element, addAttribute, addInner };
 }
 
 function createButton(buttonClass, buttonId, buttonText) {
@@ -49,13 +61,21 @@ function createCard(title, description) {
   card.appendChild(cardHeader);
   card.appendChild(cardBody);
 
-  const addNewItem = function (element, itemInner) {
+  const addNewInner = function (element, itemInner) {
     const newItem = document.createElement(element);
     newItem.innerText = itemInner;
     cardBody.appendChild(newItem);
   };
 
-  return { card: card, addNewItem: addNewItem };
+  const addNodeChild = function (element, itemInner) {
+    {
+      const newItem = document.createElement(element);
+      newItem.appendChild(itemInner);
+      cardBody.appendChild(newItem);
+    }
+  };
+
+  return { card: card, addNewInner, addNodeChild };
 }
 
 export {

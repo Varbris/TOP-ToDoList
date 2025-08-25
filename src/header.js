@@ -12,14 +12,10 @@ export function header() {
   const headerContainer = document.createElement("header");
   const navBar = document.createElement("nav");
   navBar.classList.add("navbar");
-
-  navBar.appendChild(
-    createCustomElement(
-      "div",
-      createAnchor("To Do List", "/"),
-      "brand-container"
-    )
-  );
+  const navbarBrand = createCustomElement("div");
+  navbarBrand.addInner(createAnchor("To Do List", "/"));
+  navbarBrand.addAttribute("class", "brand-container");
+  navBar.appendChild(navbarBrand.element);
   const navbarList = document.createElement("ul");
   navbarList.appendChild(
     createNavLink(

@@ -1,4 +1,4 @@
-import { createCard } from "./create";
+import { createCard, createCustomElement } from "./create";
 
 const { format } = require("date-fns");
 
@@ -41,8 +41,11 @@ function updateArticle(currentPath) {
               "y-MMM-d"
             );
       const card = createCard(item.title, item.description);
-      card.addNewItem("p", date);
-      card.addNewItem("p", item.priority);
+      const href = createCustomElement("a");
+      href.addInner("awiwkok");
+      href.addAttribute("href", "https://google.com");
+      card.addNewInner("p", "awikwok");
+      card.addNodeChild("div", href.element);
       article.appendChild(card.card);
     });
   }
