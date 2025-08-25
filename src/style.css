@@ -136,6 +136,13 @@ main {
   padding: 5px 10px;
 }
 
+.priority-box {
+  display: flex;
+  align-content: stretch;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
 .article {
   display: grid;
   grid-template-columns: 1fr;
