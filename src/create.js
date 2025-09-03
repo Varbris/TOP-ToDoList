@@ -1,5 +1,22 @@
 import { add } from "date-fns";
 
+function createCustomElement(tagName) {
+  const element = document.createElement(tagName);
+
+  const addInner = function (innerHTML) {
+    element.innerText = innerHTML;
+  };
+
+  const addChild = function (node) {
+    element.appendChild(node);
+  };
+
+  const addAttribute = function (attributeName, attributeValue) {
+    element.setAttribute(attributeName, attributeValue);
+  };
+  return { element, addAttribute, addInner, addChild };
+}
+
 function createNavLink(navLinkClass, navLinkHtml = null, navLinkInner = null) {
   const navlink = document.createElement("li");
   navlink.classList.add(navLinkClass);
@@ -17,23 +34,6 @@ function createAnchor(anchorName, link) {
   element.setAttribute("href", link);
   element.innerText = anchorName;
   return element;
-}
-
-function createCustomElement(tagName) {
-  const element = document.createElement(tagName);
-
-  const addInner = function (innerHTML) {
-    element.innerText = innerHTML;
-  };
-
-  const addChild = function (node) {
-    element.appendChild(node);
-  };
-
-  const addAttribute = function (attributeName, attributeValue) {
-    element.setAttribute(attributeName, attributeValue);
-  };
-  return { element, addAttribute, addInner, addChild };
 }
 
 function createButton(buttonClass, buttonId, buttonText) {

@@ -120,10 +120,16 @@ header {
 
 .nav-item {
   padding: 5px 1rem;
+  display: flex;
+  justify-content: space-between;
 }
 
 .nav-item:hover {
   background-color: rgba(212, 253, 239, 0.473);
+}
+
+.nav-item:hover > img {
+  display: inline;
 }
 
 main {
@@ -148,4 +154,18 @@ main {
   grid-template-columns: 1fr;
   grid-template-rows: repeat(1fr, auto);
   gap: 10px;
+}
+
+.add-project-btn {
+  background-color: none;
+  border: none;
+  background: none;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.add-icon {
+  width: 30px;
+  display: none;
 }
