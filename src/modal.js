@@ -77,4 +77,18 @@ function addTaskModal() {
   return modal;
 }
 
-export { addTaskModal };
+function addProjectModal() {
+  const myModal = document.createElement("dialog");
+  const myForm = new Form();
+  const getForm = myForm.myForm;
+  myForm.addInputField("text", "name");
+  myForm.addButton("form-add-project", "formAddProject", "Add Project");
+  getForm.addEventListener("click", function (event) {
+    event.preventDefault();
+    console.log(event.target);
+  });
+  myModal.appendChild(getForm);
+  return myModal;
+}
+
+export { addTaskModal, addProjectModal };

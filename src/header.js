@@ -1,4 +1,4 @@
-import { addTaskModal } from "./modal.js";
+import { addProjectModal, addTaskModal } from "./modal.js";
 import {
   createNavLink,
   createButton,
@@ -20,6 +20,7 @@ export function header() {
   navBar.appendChild(navbarBrand.element);
 
   const navbarList = document.createElement("ul");
+  navbarList.setAttribute("class", "navbar-nav");
 
   navbarList.appendChild(
     createNavLink(
@@ -42,8 +43,9 @@ export function header() {
   myImg.setAttribute("src", addIcon);
   myImg.setAttribute("class", "add-icon");
   const myListLink = navbarList.getElementsByClassName("nav-item");
+  console.log(myListLink);
   for (let item of myListLink) {
-    item.addEventListener("mouseover", function () {
+    item.addEventListener("mouseover", function (event) {
       if (item.firstChild.id === "addProjectButton") {
         item.appendChild(myImg);
       }
@@ -51,12 +53,12 @@ export function header() {
   }
   navBar.appendChild(navbarList);
   headerContainer.appendChild(navBar);
-
-  const modal = addTaskModal();
-  headerContainer.appendChild(modal);
-  navBar.addEventListener("click", function (event) {
+  const myTaskModal = addTaskModal();
+  const myProjectModal = addProjectModal();
+  navbarList.addEventListener("click", function (event) {
     if (event.target.id === "addTaskButton") {
-      modal.showModal();
+      headerContainer.appendChild(myTaskModal);
+      myTaskModal.showModal();
     }
 
     if ((event.target.targetName = "a")) {
@@ -65,7 +67,9 @@ export function header() {
       updateArticle(window.location.pathname);
     }
 
-    if ((event.target.id = "addProjectButton")) {
+    if (event.target.id === "addProjectButton") {
+      headerContainer.appendChild(myProjectModal);
+      myProjectModal.showModal();
     }
   });
 
