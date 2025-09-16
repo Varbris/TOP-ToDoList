@@ -98,6 +98,21 @@ header {
   overflow: hidden;
 }
 
+.nav-item {
+  background-color: none;
+  background: none;
+}
+
+.navbar-nav .nav-item a {
+  display: flex;
+  flex-direction: row;
+  padding: 15px;
+}
+
+.navbar-nav .nav-item a {
+  width: 24vw;
+}
+
 .add-task-button {
   background-color: none;
   background: none;
@@ -118,18 +133,24 @@ header {
   gap: 10px;
 }
 
-.nav-item {
-  padding: 5px 1rem;
-  display: flex;
-  justify-content: space-between;
-}
-
 .nav-item:hover {
   background-color: rgba(212, 253, 239, 0.473);
 }
 
-.nav-item:hover > img {
+.nav-item:hover button > img {
   display: inline;
+
+  position: relative;
+}
+
+.nav-item button {
+  text-align: start;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 10vw;
+  padding: 15px;
+  align-items: stretch;
+  justify-items: end;
 }
 
 main {
@@ -161,8 +182,6 @@ main {
   border: none;
   background: none;
   padding: 0;
-  display: flex;
-  justify-content: space-between;
 }
 
 .add-icon {

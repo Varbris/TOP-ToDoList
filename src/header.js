@@ -42,12 +42,13 @@ export function header() {
   const myImg = document.createElement("img");
   myImg.setAttribute("src", addIcon);
   myImg.setAttribute("class", "add-icon");
+  myImg.setAttribute("id", "addIcon");
   const myListLink = navbarList.getElementsByClassName("nav-item");
-  console.log(myListLink);
+
   for (let item of myListLink) {
     item.addEventListener("mouseover", function (event) {
-      if (item.firstChild.id === "addProjectButton") {
-        item.appendChild(myImg);
+      if (event.target.id === "addProjectButton") {
+        event.target.appendChild(myImg);
       }
     });
   }
@@ -67,7 +68,10 @@ export function header() {
       updateArticle(window.location.pathname);
     }
 
-    if (event.target.id === "addProjectButton") {
+    if (
+      event.target.id === "addProjectButton" ||
+      event.target.id === "addIcon"
+    ) {
       headerContainer.appendChild(myProjectModal);
       myProjectModal.showModal();
     }

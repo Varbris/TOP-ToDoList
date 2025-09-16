@@ -55,6 +55,7 @@ export default class Form {
 
   addButton(buttonClass, buttonId, buttonText) {
     const button = createButton(buttonClass, buttonId, buttonText);
+    button.setAttribute("type", "submit");
     this.form.appendChild(button);
   }
 }

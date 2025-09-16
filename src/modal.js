@@ -85,7 +85,9 @@ function addProjectModal() {
   myForm.addButton("form-add-project", "formAddProject", "Add Project");
   getForm.addEventListener("click", function (event) {
     event.preventDefault();
-    console.log(event.target);
+    if (event.target.id === "formAddProject") {
+      event.input;
+    }
   });
   myModal.appendChild(getForm);
   return myModal;
