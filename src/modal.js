@@ -77,7 +77,13 @@ function addProjectModal() {
   myForm.addButton("form-add-project", "formAddProject", "Add Project");
   getForm.addEventListener("submit", function (event) {
     event.preventDefault();
+    const storageName = "myProject";
     const name = document.getElementById("name");
+    myLocal().createStorage(storageName);
+    const myStorage = myLocal().getStorage(storageName);
+    myStorage.push(name.value);
+    myLocal().setStorage(storageName, myStorage);
+    myModal.close();
   });
   myModal.appendChild(getForm);
   return myModal;
