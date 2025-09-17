@@ -21,5 +21,10 @@ export default function myLocal() {
     return JSON.parse(localStorage.getItem(storageName));
   };
 
-  return { createStorage, getStorage };
+  const setStorage = function (storageName, item) {
+    const myItem = JSON.stringify(item);
+    localStorage.setItem(storageName, myItem);
+  };
+
+  return { createStorage, getStorage, setStorage };
 }

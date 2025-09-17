@@ -39,6 +39,7 @@ function addTaskModal() {
       const priority = document.getElementById("priorityDropDown");
       myLocal().createStorage(addToProject.value);
       const myStorage = myLocal().getStorage(addToProject.value);
+
       if (date.value === null || date.value === "") {
         date = "No Date";
       } else {
@@ -53,7 +54,7 @@ function addTaskModal() {
         priority: priority.value,
       };
       myStorage.push(myTask);
-      localStorage.setItem(addToProject.value, JSON.stringify(myStorage));
+      myLocal().setStorage(addToProject.value, myStorage);
       let test = document.getElementById("article");
       updateArticle(window.location.pathname);
       modal.close();
