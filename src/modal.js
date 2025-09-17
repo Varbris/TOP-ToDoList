@@ -37,9 +37,8 @@ function addTaskModal() {
       let description = document.getElementById("description");
       let date = document.getElementById("Due");
       const priority = document.getElementById("priorityDropDown");
-      const myStorage = myLocal();
-      myStorage.createStorage(addToProject.value);
-
+      myLocal().createStorage(addToProject.value);
+      const myStorage = myLocal().getStorage(addToProject.value);
       if (date.value === null || date.value === "") {
         date = "No Date";
       } else {

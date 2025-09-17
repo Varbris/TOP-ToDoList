@@ -17,5 +17,9 @@ export default function myLocal() {
     }
   };
 
-  return { createStorage: createStorage };
+  const getStorage = function (storageName) {
+    return JSON.parse(localStorage.getItem(storageName));
+  };
+
+  return { createStorage, getStorage };
 }
