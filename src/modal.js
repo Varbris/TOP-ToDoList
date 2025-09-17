@@ -1,6 +1,8 @@
 import { updateArticle } from "./main.js";
 import Form from "./form.js";
 
+import myLocal from "./myLocal.js";
+
 function addTaskModal() {
   const modal = document.createElement("dialog");
 
@@ -35,18 +37,8 @@ function addTaskModal() {
       let description = document.getElementById("description");
       let date = document.getElementById("Due");
       const priority = document.getElementById("priorityDropDown");
-      console.log(
-        "is project exist: ",
-        localStorage.hasOwnProperty(addToProject.value),
-        addToProject.value
-      );
-      if (
-        localStorage.length === 0 ||
-        !localStorage.hasOwnProperty(addToProject.value)
-      ) {
-        localStorage.setItem(addToProject.value, JSON.stringify([]));
-      }
-      const myStorage = JSON.parse(localStorage.getItem(addToProject.value));
+      const myStorage = myLocal();
+      myStorage.createStorage(addToProject.value);
 
       if (date.value === null || date.value === "") {
         date = "No Date";
@@ -83,11 +75,9 @@ function addProjectModal() {
   const getForm = myForm.myForm;
   myForm.addInputField("text", "name");
   myForm.addButton("form-add-project", "formAddProject", "Add Project");
-  getForm.addEventListener("click", function (event) {
+  getForm.addEventListener("submit", function (event) {
     event.preventDefault();
-    if (event.target.id === "formAddProject") {
-      event.input;
-    }
+    const name = document.getElementById("name");
   });
   myModal.appendChild(getForm);
   return myModal;

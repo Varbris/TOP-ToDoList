@@ -3,6 +3,7 @@ import { createButton } from "./create.js";
 export default class Form {
   constructor() {
     this.form = document.createElement("form");
+    this.form.setAttribute("method", "post");
   }
 
   get myForm() {
