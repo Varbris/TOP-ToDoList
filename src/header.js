@@ -1,6 +1,6 @@
 import { addProjectModal, addTaskModal } from "./modal.js";
 import {
-  createNavLink,
+  createNavLi,
   createButton,
   createAnchor,
   createCustomElement,
@@ -8,6 +8,8 @@ import {
 } from "./create.js";
 import { updateArticle } from "./main.js";
 import addIcon from "./add.png";
+import myLocal from "./myLocal.js";
+import { el } from "date-fns/locale";
 
 export function header() {
   const body = document.getElementById("body");
@@ -23,21 +25,35 @@ export function header() {
   navbarList.setAttribute("class", "navbar-nav");
 
   navbarList.appendChild(
-    createNavLink(
+    createNavLi(
       "nav-item",
       createButton("add-task-button", "addTaskButton", "Add Task")
     )
   );
   navbarList.appendChild(
-    createNavLink("nav-item", createAnchor("Your Todos", "/YourTodos"))
+    createNavLi("nav-item", createAnchor("Your Todos", "/YourTodos"))
   );
 
   navbarList.appendChild(
-    createNavLink(
+    createNavLi(
       "nav-item",
       createButton("add-project-btn", "addProjectButton", "Your Project")
     )
   );
+
+  if (myLocal().isExist("myProject")) {
+    const myLocalData = myLocal().getStorage("myProject");
+    const myProjectContainer = createCustomElement("div");
+    myLocalData.forEach((element) => {
+      const a = createAnchor(element, "/myProject/" + element);
+      myProjectContainer.addChild(a);
+    });
+    myProjectContainer.addAttribute("class", "my-project");
+
+    navbarList.appendChild(createNavLi("nav-item", myProjectContainer.element));
+  }
+
+  console.log(navbarList);
 
   const myImg = document.createElement("img");
   myImg.setAttribute("src", addIcon);

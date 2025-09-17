@@ -26,5 +26,5 @@ export default function myLocal() {
     localStorage.setItem(storageName, myItem);
   };
 
-  return { createStorage, getStorage, setStorage };
+  return { createStorage, getStorage, setStorage, isExist };
 }

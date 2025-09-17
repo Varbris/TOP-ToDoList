@@ -1,5 +1,3 @@
-import { add } from "date-fns";
-
 function createCustomElement(tagName) {
   const element = document.createElement(tagName);
 
@@ -17,7 +15,7 @@ function createCustomElement(tagName) {
   return { element, addAttribute, addInner, addChild };
 }
 
-function createNavLink(navLinkClass, navLinkHtml = null, navLinkInner = null) {
+function createNavLi(navLinkClass, navLinkHtml = null, navLinkInner = null) {
   const navlink = document.createElement("li");
   navlink.classList.add(navLinkClass);
   if (navLinkHtml === null) {
@@ -70,7 +68,7 @@ function createCard(title, description) {
 
 export {
   createButton,
-  createNavLink,
+  createNavLi,
   createAnchor,
   createCard,
   createCustomElement,
