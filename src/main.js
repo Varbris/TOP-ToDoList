@@ -59,4 +59,10 @@ function updateArticle(currentPath) {
     });
   }
 }
-export { main, updateArticle };
+
+function updateHeader(currentPath) {
+  if (currentPath === "/" || currentPath === "") {
+    console.log(currentPath);
+  }
+}
+export { main, updateArticle, updateHeader };

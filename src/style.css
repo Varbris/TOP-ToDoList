@@ -101,16 +101,14 @@ header {
 .nav-item {
   background-color: none;
   background: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 1vw;
 }
 
-.navbar-nav .nav-item a {
-  display: flex;
-  flex-direction: row;
-  padding: 15px;
-}
-
-.navbar-nav .nav-item a {
-  width: 24vw;
+.nav-item button {
+  text-align: start;
 }
 
 .add-task-button {
@@ -143,16 +141,6 @@ header {
   position: relative;
 }
 
-.nav-item button {
-  text-align: start;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  column-gap: 10vw;
-  padding: 15px;
-  align-items: stretch;
-  justify-items: end;
-}
-
 main {
   padding: 2vw;
 }
@@ -181,10 +169,15 @@ main {
   background-color: none;
   border: none;
   background: none;
-  padding: 0;
+  width: 50px;
+  justify-self: end;
 }
 
+.add-project-btn:active {
+  width: 35px;
+}
 .add-icon {
   width: 30px;
+  margin: 0 auto;
   display: none;
 }

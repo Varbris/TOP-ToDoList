@@ -34,12 +34,16 @@ export function header() {
     createNavLi("nav-item", createAnchor("Your Todos", "/YourTodos"))
   );
 
-  navbarList.appendChild(
-    createNavLi(
-      "nav-item",
-      createButton("add-project-btn", "addProjectButton", "Your Project")
-    )
-  );
+  const projectElement = [
+    createAnchor("Your Project", "/myProject"),
+    createButton("add-project-btn", "addProjectButton", ""),
+  ];
+  const myProjectLink = createCustomElement("li");
+  myProjectLink.addAttribute("class", "nav-item");
+  projectElement.forEach(function (element) {
+    myProjectLink.addChild(element);
+  });
+  navbarList.appendChild(myProjectLink.element);
 
   if (myLocal().isExist("myProject")) {
     const myLocalData = myLocal().getStorage("myProject");
