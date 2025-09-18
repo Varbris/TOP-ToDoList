@@ -36,6 +36,7 @@ function addTaskModal() {
       event.target.value === "YourProject"
     ) {
       const selectProject = createCustomElement("select");
+      selectProject.addAttribute("id", "sendToProject");
       const myProjectData = myLocal().getStorage("myProject");
       myProjectData.forEach((element) => {
         const option = createCustomElement("option");
@@ -44,7 +45,16 @@ function addTaskModal() {
         selectProject.addChild(option.element);
       });
       testForm.insertInputAfter(event.target, selectProject.element);
+    } else if (
+      event.target.id === "projectDropDown" &&
+      event.target.value === "YourTodos"
+    ) {
+      const toProject = document.getElementById("sendToProject");
+      if (toProject !== null) {
+        toProject.remove();
+      }
     }
+
     if (event.target.id === "addTask") {
       event.preventDefault();
       const addToProject = document.getElementById("projectDropDown");
