@@ -45,20 +45,6 @@ export function header() {
   });
   navbarList.appendChild(myProjectLink.element);
 
-  if (myLocal().isExist("myProject")) {
-    const myLocalData = myLocal().getStorage("myProject");
-    const myProjectContainer = createCustomElement("div");
-    myLocalData.forEach((element) => {
-      const a = createAnchor(element, "/myProject/" + element);
-      myProjectContainer.addChild(a);
-    });
-    myProjectContainer.addAttribute("class", "my-project");
-
-    navbarList.appendChild(createNavLi("nav-item", myProjectContainer.element));
-  }
-
-  console.log(navbarList);
-
   const myImg = document.createElement("img");
   myImg.setAttribute("src", addIcon);
   myImg.setAttribute("class", "add-icon");

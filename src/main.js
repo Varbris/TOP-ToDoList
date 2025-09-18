@@ -1,4 +1,10 @@
-import { createCard, createCustomElement } from "./create";
+import {
+  createCard,
+  createCustomElement,
+  createAnchor,
+  createNavLi,
+} from "./create";
+import myLocal from "./myLocal";
 
 const { format } = require("date-fns");
 
@@ -16,6 +22,7 @@ function main() {
 `;
   } else {
     updateArticle(window.location.pathname);
+    updateHeader(window.location.pathname);
   }
 }
 
@@ -61,8 +68,29 @@ function updateArticle(currentPath) {
 }
 
 function updateHeader(currentPath) {
+  const myData = myLocal().getStorage("myProject");
+  const navbarList = document.querySelector(".navbar-nav");
+  console.log(navbarList);
   if (currentPath === "/" || currentPath === "") {
     console.log(currentPath);
+  }
+
+  if (myLocal().isExist("myProject")) {
+    const myLocalData = myLocal().getStorage("myProject");
+    const myProjectContainer = createCustomElement("div");
+    const myProjectList = createCustomElement("ul");
+    myProjectList.addAttribute("class", "project-list");
+    myLocalData.forEach((element) => {
+      const li = createCustomElement("li");
+      li.addAttribute("class", "project-item");
+      const a = createAnchor(element, "/myProject/" + element);
+      li.addChild(a);
+      myProjectList.addChild(li.element);
+    });
+    myProjectContainer.addAttribute("class", "my-project");
+    myProjectContainer.addChild(myProjectList.element);
+
+    navbarList.appendChild(createNavLi("nav-item", myProjectContainer.element));
   }
 }
 export { main, updateArticle, updateHeader };
