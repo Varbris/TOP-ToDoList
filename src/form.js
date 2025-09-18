@@ -10,6 +10,10 @@ export default class Form {
     return this.form;
   }
 
+  insertInputAfter(referenceNode, newNode) {
+    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+  }
+
   addInputField(type, title) {
     const div = document.createElement("div");
     div.classList.add("form-row");
@@ -20,10 +24,10 @@ export default class Form {
     inputField.setAttribute("type", type);
     inputField.setAttribute("id", title);
     inputField.setAttribute("name", title);
-    div.appendChild(label);
-    div.appendChild(inputField);
+    div.append(label);
+    div.append(inputField);
 
-    this.form.appendChild(div);
+    this.form.append(div);
   }
 
   addDropDown(title, selectOption, id) {

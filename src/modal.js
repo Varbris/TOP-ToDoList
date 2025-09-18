@@ -2,6 +2,7 @@ import { updateArticle, updateHeader } from "./main.js";
 import Form from "./form.js";
 import { header } from "./header.js";
 import myLocal from "./myLocal.js";
+import { createCustomElement } from "./create.js";
 
 function addTaskModal() {
   const modal = document.createElement("dialog");
@@ -30,6 +31,20 @@ function addTaskModal() {
   modal.appendChild(myForm);
 
   myForm.addEventListener("click", function (event) {
+    if (
+      event.target.id === "projectDropDown" &&
+      event.target.value === "YourProject"
+    ) {
+      const selectProject = createCustomElement("select");
+      const myProjectData = myLocal().getStorage("myProject");
+      myProjectData.forEach((element) => {
+        const option = createCustomElement("option");
+        option.addAttribute("value", element);
+        option.addInner(element);
+        selectProject.addChild(option.element);
+      });
+      testForm.insertInputAfter(event.target, selectProject.element);
+    }
     if (event.target.id === "addTask") {
       event.preventDefault();
       const addToProject = document.getElementById("projectDropDown");
