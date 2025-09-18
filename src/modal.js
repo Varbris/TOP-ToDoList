@@ -1,6 +1,6 @@
 import { updateArticle, updateHeader } from "./main.js";
 import Form from "./form.js";
-
+import { header } from "./header.js";
 import myLocal from "./myLocal.js";
 
 function addTaskModal() {
@@ -83,7 +83,7 @@ function addProjectModal() {
     const myStorage = myLocal().getStorage(storageName);
     myStorage.push(name.value);
     myLocal().setStorage(storageName, myStorage);
-    updateHeader(window.location.pathname);
+    header();
     myModal.close();
   });
   myModal.appendChild(getForm);
