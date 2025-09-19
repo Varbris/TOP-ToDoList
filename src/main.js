@@ -28,8 +28,8 @@ function main() {
 
 function updateArticle(currentPath) {
   currentPath = currentPath.replace("/", "");
-  const data = JSON.parse(localStorage.getItem(currentPath));
 
+  const data = myLocal().getStorage(currentPath);
   //!fix this when data is missing from local storage
   if (data === null) {
     return 0;
@@ -67,12 +67,4 @@ function updateArticle(currentPath) {
   }
 }
 
-function updateHeader(currentPath) {
-  const myData = myLocal().getStorage("myProject");
-
-  if (currentPath === "/" || currentPath === "") {
-    console.log(currentPath);
-  }
-}
-
-export { main, updateArticle, updateHeader };
+export { main, updateArticle };

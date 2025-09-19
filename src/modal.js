@@ -47,9 +47,9 @@ function addTaskModal() {
         selectProject.element.disabled = true;
       } else {
         myProjectData.forEach((element) => {
-          option.addInner("");
           option.addAttribute("value", element);
           option.addInner(element);
+          console.log("aaaaaaaaaaaa", element);
           selectProject.addChild(option.element);
         });
       }
@@ -72,6 +72,7 @@ function addTaskModal() {
     if (event.target.id === "addTask") {
       event.preventDefault();
       const addToProject = document.getElementById("projectDropDown");
+      const sendToProject = document.getElementById("sendToProject");
       let title = document.getElementById("title");
       let description = document.getElementById("description");
       let date = document.getElementById("Due");
@@ -93,7 +94,13 @@ function addTaskModal() {
         priority: priority.value,
       };
       myStorage.push(myTask);
-      myLocal().setStorage(addToProject.value, myStorage);
+
+      if (sendToProject !== null) {
+        myLocal().setStorage(addToProject.value, myStorage);
+        myLocal().setStorage(sendToProject.value, myStorage);
+      } else {
+        myLocal().setStorage(addToProject.value, myStorage);
+      }
       let test = document.getElementById("article");
       updateArticle(window.location.pathname);
       modal.close();

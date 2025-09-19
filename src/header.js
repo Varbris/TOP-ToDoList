@@ -34,7 +34,9 @@ export function header() {
       myTaskModal.showModal();
     }
 
-    if ((event.target.targetName = "a")) {
+    if (
+      (event.target.targetName = "a" && event.target.pathname === "/YourTodos")
+    ) {
       event.preventDefault();
       window.history.pushState({}, "", event.target.href);
       updateArticle(window.location.pathname);
@@ -46,6 +48,14 @@ export function header() {
     ) {
       headerContainer.appendChild(myProjectModal);
       myProjectModal.showModal();
+    }
+
+    if (
+      (event.target.targetName = "a" && event.target.pathname === "/myProject")
+    ) {
+      event.preventDefault();
+      window.history.pushState({}, "", event.target.href);
+      updateArticle(event.target.pathname);
     }
   });
 
