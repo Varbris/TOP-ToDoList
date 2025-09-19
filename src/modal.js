@@ -78,8 +78,6 @@ function addTaskModal() {
       let description = document.getElementById("description");
       let date = document.getElementById("Due");
       const priority = document.getElementById("priorityDropDown");
-      myLocal().createStorage(addToProject.value);
-      const myStorage = myLocal().getStorage(addToProject.value);
 
       if (date.value === null || date.value === "") {
         date = "No Date";
@@ -94,14 +92,19 @@ function addTaskModal() {
         date: date,
         priority: priority.value,
       };
-      myStorage.push(myTask);
 
       if (sendToProject !== null) {
-        myLocal().setStorage(addToProject.value, myStorage);
-        myLocal().setStorage(sendToProject.value, myStorage);
+        myLocal().createStorage(sendToProject.value);
+        const myProject = myLocal().getStorage(sendToProject.value);
+        myProject.push(myTask);
+        myLocal().setStorage(sendToProject.value, myProject);
       } else {
+        myLocal().createStorage(addToProject.value);
+        const myStorage = myLocal().getStorage(addToProject.value);
+        myStorage.push(myTask);
         myLocal().setStorage(addToProject.value, myStorage);
       }
+
       let test = document.getElementById("article");
       updateArticle(window.location.pathname);
       modal.close();
