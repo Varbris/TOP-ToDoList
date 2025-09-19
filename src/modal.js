@@ -30,31 +30,38 @@ function addTaskModal() {
   testForm.addButton("cancel-button", "cancelButton", "Cancel");
   modal.appendChild(myForm);
 
+  var dropDownClickNumber = 0;
   myForm.addEventListener("click", function (event) {
     if (
       event.target.id === "projectDropDown" &&
-      event.target.value === "YourProject"
+      event.target.value === "YourProject" &&
+      dropDownClickNumber < 1
     ) {
       const selectProject = createCustomElement("select");
       selectProject.addAttribute("id", "sendToProject");
       const myProjectData = myLocal().getStorage("myProject");
       myProjectData.forEach((element) => {
         const option = createCustomElement("option");
+        option.addInner("");
         option.addAttribute("value", element);
         option.addInner(element);
         selectProject.addChild(option.element);
       });
       testForm.insertInputAfter(event.target, selectProject.element);
+      dropDownClickNumber = 1;
     } else if (
       event.target.id === "projectDropDown" &&
       event.target.value === "YourTodos"
     ) {
       const toProject = document.getElementById("sendToProject");
+      dropDownClickNumber = 0;
       if (toProject !== null) {
         toProject.remove();
       }
     }
+  });
 
+  myForm.addEventListener("click", function (event) {
     if (event.target.id === "addTask") {
       event.preventDefault();
       const addToProject = document.getElementById("projectDropDown");
