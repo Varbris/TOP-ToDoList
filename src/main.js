@@ -22,7 +22,6 @@ function main() {
 `;
   } else {
     updateArticle(window.location.pathname);
-    updateHeader(window.location.pathname);
   }
 }
 

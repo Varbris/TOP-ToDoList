@@ -40,16 +40,17 @@ function addTaskModal() {
       const selectProject = createCustomElement("select");
       selectProject.addAttribute("id", "sendToProject");
       const myProjectData = myLocal().getStorage("myProject");
-      const option = createCustomElement("option");
+
       if (myProjectData == null) {
+        const option = createCustomElement("option");
         option.addInner("You dont have a project");
         selectProject.addChild(option.element);
         selectProject.element.disabled = true;
       } else {
         myProjectData.forEach((element) => {
+          const option = createCustomElement("option");
           option.addAttribute("value", element);
           option.addInner(element);
-          console.log("aaaaaaaaaaaa", element);
           selectProject.addChild(option.element);
         });
       }
