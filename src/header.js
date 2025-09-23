@@ -119,6 +119,11 @@ function createNavbar() {
       li.addAttribute("class", "project-item");
       const a = createAnchor(element, "/myProject/" + element);
       li.addChild(a);
+      a.addEventListener("click", function (event) {
+        event.preventDefault();
+        window.history.pushState({}, "", event.target.href);
+        updateArticle(window.location.pathname);
+      });
       myProjectList.addChild(li.element);
     });
     myProjectContainer.addChild(myProjectList.element);

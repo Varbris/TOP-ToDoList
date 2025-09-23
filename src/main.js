@@ -30,7 +30,14 @@ function updateArticle(currentPath) {
   article.classList.add("article");
   article.innerHTML = "";
   currentPath = currentPath.replace("/", "");
-  const data = myLocal().getStorage(currentPath);
+  let data;
+  if (currentPath.includes("myProject")) {
+    currentPath = currentPath.replace("myProject/", "");
+    data = myLocal().getStorage(currentPath);
+  } else {
+    data = myLocal().getStorage(currentPath);
+  }
+
   //!fix this when data is missing from local storage
   if (data === null) {
     return 0;
@@ -47,6 +54,13 @@ function updateArticle(currentPath) {
     currentPath === "myProject"
   ) {
     generateMyProject(data, currentPath, article);
+  } else {
+    const myProjectList = myLocal().getStorage("myProject");
+    myProjectList.forEach(function (element) {
+      if (element === currentPath) {
+        generateYourTodos(data, currentPath, article);
+      }
+    });
   }
 }
 
