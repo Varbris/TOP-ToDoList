@@ -26,44 +26,69 @@ function main() {
 }
 
 function updateArticle(currentPath) {
+  const article = document.getElementById("article");
+  article.classList.add("article");
+  article.innerHTML = "";
   currentPath = currentPath.replace("/", "");
-
   const data = myLocal().getStorage(currentPath);
   //!fix this when data is missing from local storage
   if (data === null) {
     return 0;
   }
-  if (currentPath !== "/" && currentPath !== "") {
-    const article = document.getElementById("article");
-    article.classList.add("article");
-    article.innerHTML = "";
-
-    data.forEach(function (item) {
-      let date =
-        item.date === "No Date"
-          ? item.date
-          : format(
-              new Date(item.date[0], item.date[1] - 1, item.date[2]),
-              "y-MMM-d"
-            );
-      const pDate = createCustomElement("p");
-      pDate.addInner(date);
-      const card = createCard(item.title, item.description);
-      const href = createCustomElement("a");
-      const div = createCustomElement("div");
-      div.addAttribute("class", "priority-box");
-      div.addInner((document.createElement("p").innerText = item.priority));
-      const p = document.createElement("p");
-      p.innerText = currentPath;
-      div.addChild(p);
-      href.addAttribute("href", "https://google.com");
-      href.addInner(item.priority);
-      card.appendBody(pDate.element);
-      card.appendBody(div.element);
-
-      article.appendChild(card.card);
-    });
+  if (
+    currentPath !== "/" &&
+    currentPath !== "" &&
+    currentPath === "YourTodos"
+  ) {
+    generateYourTodos(data, currentPath, article);
+  } else if (
+    currentPath !== "/" &&
+    currentPath !== "" &&
+    currentPath === "myProject"
+  ) {
+    generateMyProject(data, currentPath, article);
   }
+}
+
+function generateYourTodos(data, currentPath, container) {
+  data.forEach(function (item) {
+    let date =
+      item.date === "No Date"
+        ? item.date
+        : format(
+            new Date(item.date[0], item.date[1] - 1, item.date[2]),
+            "y-MMM-d"
+          );
+    const pDate = createCustomElement("p");
+    pDate.addInner(date);
+    const card = createCard(item.title, item.description);
+    const href = createCustomElement("a");
+    const div = createCustomElement("div");
+    div.addAttribute("class", "priority-box");
+    div.addInner((document.createElement("p").innerText = item.priority));
+    const p = document.createElement("p");
+    p.innerText = currentPath;
+    div.addChild(p);
+    href.addAttribute("href", "https://google.com");
+    href.addInner(item.priority);
+    card.appendBody(pDate.element);
+    card.appendBody(div.element);
+
+    container.appendChild(card.card);
+  });
+}
+
+function generateMyProject(data, currentPath, container) {
+  const h1 = createCustomElement("h1");
+  h1.addInner("My Project");
+  container.appendChild(h1.element);
+  data.forEach(function (element) {
+    const a = createCustomElement("a");
+
+    a.addInner(element);
+    a.addAttribute("href", `/${currentPath}/${element}`);
+    container.appendChild(a.element);
+  });
 }
 
 export { main, updateArticle };

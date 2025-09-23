@@ -206,12 +206,18 @@ main {
   border: none;
   background: none;
   justify-self: end;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.add-project-btn:hover {
+  background-color: rgba(95, 95, 95, 0.11) !important;
 }
 
 .add-project-btn:active {
   width: 35px;
 }
 .add-icon {
-  margin: 0 auto;
   display: none;
+  max-width: 100%;
 }
