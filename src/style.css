@@ -95,7 +95,8 @@ header {
   position: sticky;
   right: 0;
   top: 0;
-  overflow: hidden;
+  width: auto;
+  height: auto;
 }
 
 .add-task-button {
@@ -116,8 +117,10 @@ header {
 }
 
 .navbar-nav {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  flex-wrap: wrap;
   gap: 10px;
 }
 
@@ -131,15 +134,17 @@ header {
 }
 
 .nav-item {
+  flex: 1 1 2vw;
+  min-width: 0;
+
   background-color: none;
   background: none;
   display: grid;
   grid-template-columns: 7fr 1fr;
+  grid-template-rows: repeat(1fr, auto);
   gap: 10px;
   align-items: center;
-  padding: 1%;
-  width: 400px;
-  height: 50px;
+  padding: 5px;
 }
 
 .nav-item button {
@@ -150,9 +155,26 @@ header {
 .nav-item a {
   padding: 1vw;
 }
+.nav-item:hover button > img {
+  display: inline;
+
+  position: relative;
+}
 
 .project-list > li:hover {
   background-color: rgba(212, 253, 239, 0.473);
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.project-list a {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 100%;
+}
+
+.project-item {
+  flex: 1 1 200px;
+  min-width: 0;
 }
 
 main {
@@ -183,7 +205,6 @@ main {
   background-color: none;
   border: none;
   background: none;
-  width: 50px;
   justify-self: end;
 }
 
@@ -191,7 +212,6 @@ main {
   width: 35px;
 }
 .add-icon {
-  width: 30px;
   margin: 0 auto;
   display: none;
 }
