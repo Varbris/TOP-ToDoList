@@ -117,7 +117,7 @@ function createNavbar() {
     myProject.forEach((element) => {
       const li = createCustomElement("li");
       li.addAttribute("class", "project-item");
-      const a = createAnchor(element, "/myProject/" + element);
+      const a = createAnchor(element.title, "/myProject/" + element.data);
       li.addChild(a);
       a.addEventListener("click", function (event) {
         event.preventDefault();

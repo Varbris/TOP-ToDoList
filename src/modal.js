@@ -131,7 +131,11 @@ function addProjectModal() {
     const name = document.getElementById("name");
     myLocal().createStorage(storageName);
     const myStorage = myLocal().getStorage(storageName);
-    myStorage.push(name.value);
+    const myProject = {
+      title: name.value,
+      data: name.value.replaceAll(" ", ""),
+    };
+    myStorage.push(myProject);
     myLocal().setStorage(storageName, myStorage);
     header();
     myModal.close();

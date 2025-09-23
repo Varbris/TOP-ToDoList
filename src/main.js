@@ -99,8 +99,8 @@ function generateMyProject(data, currentPath, container) {
   data.forEach(function (element) {
     const a = createCustomElement("a");
 
-    a.addInner(element);
-    a.addAttribute("href", `/${currentPath}/${element}`);
+    a.addInner(element.title);
+    a.addAttribute("href", `/${currentPath}/${element.data}`);
     container.appendChild(a.element);
   });
 }
