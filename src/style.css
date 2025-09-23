@@ -98,19 +98,6 @@ header {
   overflow: hidden;
 }
 
-.nav-item {
-  background-color: none;
-  background: none;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-  padding: 1vw;
-}
-
-.nav-item button {
-  text-align: start;
-}
-
 .add-task-button {
   background-color: none;
   background: none;
@@ -126,19 +113,46 @@ header {
 .navbar ul {
   list-style-type: none;
   padding: 0;
+}
+
+.navbar-nav {
   display: grid;
-  grid-template-rows: repeat(auto, 1fr);
+  grid-template-columns: 1fr;
   gap: 10px;
 }
 
-.nav-item:hover {
+.nav-item:hover > button {
   background-color: rgba(212, 253, 239, 0.473);
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.nav-item:hover > a {
+  background-color: rgba(212, 253, 239, 0.473);
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
-.nav-item:hover button > img {
-  display: inline;
+.nav-item {
+  background-color: none;
+  background: none;
+  display: grid;
+  grid-template-columns: 7fr 1fr;
+  gap: 10px;
+  align-items: center;
+  padding: 1%;
+  width: 400px;
+  height: 50px;
+}
 
-  position: relative;
+.nav-item button {
+  text-align: start;
+  padding: 1vw;
+}
+
+.nav-item a {
+  padding: 1vw;
+}
+
+.project-list > li:hover {
+  background-color: rgba(212, 253, 239, 0.473);
 }
 
 main {
