@@ -30,6 +30,9 @@ export function header() {
   const myProjectModal = addProjectModal();
   navbarList.addEventListener("click", function (event) {
     if (event.target.id === "addTaskButton") {
+      event.preventDefault();
+      event.target.href = "/";
+      window.history.pushState({}, "", event.target.href);
       headerContainer.appendChild(myTaskModal);
       myTaskModal.showModal();
     }
