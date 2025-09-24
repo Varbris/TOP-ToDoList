@@ -40,6 +40,7 @@ function updateArticle(currentPath) {
 
   //!fix this when data is missing from local storage
   if (data === null) {
+    article.innerText = "You Dont have Any Data !, just add some task dude";
     return 0;
   }
   if (
@@ -60,32 +61,36 @@ function updateArticle(currentPath) {
 }
 
 function generateYourTodos(data, currentPath, container) {
-  container;
-  data.forEach(function (item) {
-    let date =
-      item.date === "No Date"
-        ? item.date
-        : format(
-            new Date(item.date[0], item.date[1] - 1, item.date[2]),
-            "y-MMM-d"
-          );
-    const pDate = createCustomElement("p");
-    pDate.addInner(date);
-    const card = createCard(item.title, item.description);
-    const href = createCustomElement("a");
-    const div = createCustomElement("div");
-    div.addAttribute("class", "priority-box");
-    div.addInner((document.createElement("p").innerText = item.priority));
-    const p = document.createElement("p");
-    p.innerText = currentPath;
-    div.addChild(p);
-    href.addAttribute("href", "https://google.com");
-    href.addInner(item.priority);
-    card.appendBody(pDate.element);
-    card.appendBody(div.element);
+  container.innerText = "";
+  if (data === null) {
+    container.innerText = "You Dont have Any Data !, just add some task dude";
+  } else {
+    data.forEach(function (item) {
+      let date =
+        item.date === "No Date"
+          ? item.date
+          : format(
+              new Date(item.date[0], item.date[1] - 1, item.date[2]),
+              "y-MMM-d"
+            );
+      const pDate = createCustomElement("p");
+      pDate.addInner(date);
+      const card = createCard(item.title, item.description);
+      const href = createCustomElement("a");
+      const div = createCustomElement("div");
+      div.addAttribute("class", "priority-box");
+      div.addInner((document.createElement("p").innerText = item.priority));
+      const p = document.createElement("p");
+      p.innerText = currentPath;
+      div.addChild(p);
+      href.addAttribute("href", "https://google.com");
+      href.addInner(item.priority);
+      card.appendBody(pDate.element);
+      card.appendBody(div.element);
 
-    container.appendChild(card.card);
-  });
+      container.appendChild(card.card);
+    });
+  }
 }
 
 function generateMyProject(projectTitle, currentPath, container) {
