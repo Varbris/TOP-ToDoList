@@ -185,6 +185,24 @@ main {
   border: 1px solid black;
   border-radius: 5px;
   padding: 5px 10px;
+  display: grid;
+  grid-template-areas:
+    "header header header"
+    "body body control";
+}
+
+.card-header {
+  grid-area: header;
+}
+
+.card-body {
+  grid-area: body;
+}
+
+.card-control {
+  grid-area: control;
+  justify-self: center;
+  align-self: center;
 }
 
 .priority-box {

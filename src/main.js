@@ -86,16 +86,27 @@ function generateYourTodos(data, currentPath, container) {
       pDate.addInner(date);
       const card = createCard(item.title, item.description);
       const href = createCustomElement("a");
-      const div = createCustomElement("div");
-      div.addAttribute("class", "priority-box");
-      div.addInner((document.createElement("p").innerText = item.priority));
+      const div1 = createCustomElement("div");
+      const controlDiv = createCustomElement("div");
+      controlDiv.addAttribute("class", "card-control");
+      const controlBtn = ["Delete", "Edit"];
+      controlBtn.forEach((element) => {
+        const btn = createCustomElement("button");
+        btn.addAttribute("id", element + "TodosBtn");
+        btn.addInner(element);
+        controlDiv.addChild(btn.element);
+      });
+
+      div1.addAttribute("class", "priority-box");
+      div1.addInner((document.createElement("p").innerText = item.priority));
       const p = document.createElement("p");
       p.innerText = currentPath;
-      div.addChild(p);
+      div1.addChild(p);
       href.addAttribute("href", "https://google.com");
       href.addInner(item.priority);
       card.appendBody(pDate.element);
-      card.appendBody(div.element);
+      card.appendBody(div1.element);
+      card.addToCard(controlDiv.element);
 
       container.appendChild(card.card);
     });

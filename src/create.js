@@ -1,8 +1,8 @@
 function createCustomElement(tagName) {
   const element = document.createElement(tagName);
 
-  const addInner = function (innerHTML) {
-    element.innerText = innerHTML;
+  const addInner = function (text) {
+    element.innerText = text;
   };
 
   const addChild = function (node) {
@@ -63,11 +63,14 @@ function createCard(title, description) {
   card.appendChild(cardHeader);
   card.appendChild(cardBody);
 
+  const addToCard = function (element) {
+    card.appendChild(element);
+  };
   const appendBody = function (element) {
     cardBody.appendChild(element);
   };
 
-  return { card: card, appendBody };
+  return { card: card, appendBody, addToCard };
 }
 
 export {
