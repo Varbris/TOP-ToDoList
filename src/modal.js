@@ -1,6 +1,7 @@
 import { updateArticle, updateHeader } from "./main.js";
 import Form from "./form.js";
 import { header } from "./header.js";
+import { main } from "./main.js";
 import myLocal from "./myLocal.js";
 import { createCustomElement } from "./create.js";
 
@@ -138,6 +139,7 @@ function addProjectModal() {
     myStorage.push(myProject);
     myLocal().setStorage(storageName, myStorage);
     header();
+    main();
     myModal.close();
   });
   myModal.appendChild(getForm);

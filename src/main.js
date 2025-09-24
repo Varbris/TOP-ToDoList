@@ -13,6 +13,7 @@ function main() {
   const mainContainer = document.createElement("main");
   const articleContainer = document.createElement("article");
   articleContainer.id = "article";
+  articleContainer.setAttribute("class", "article");
   mainContainer.appendChild(articleContainer);
   body.appendChild(mainContainer);
 
@@ -20,6 +21,8 @@ function main() {
     articleContainer.innerHTML = `
   Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit quas adipisci necessitatibus sit consequatur ut veniam. Eum, expedita ipsum? Saepe quam placeat velit doloribus sunt itaque assumenda earum sit, minima reiciendis et. Beatae magnam ullam ducimus eveniet vitae eos consequuntur consectetur, sunt voluptate excepturi ex? Iusto tenetur quam doloribus, perferendis quasi adipisci animi ut deleniti culpa placeat, sunt consectetur distinctio, ullam dolore at consequatur itaque. Voluptatibus fugit enim soluta inventore veritatis officiis fugiat exercitationem provident architecto, et molestias placeat. Ex placeat, quod quibusdam minima a obcaecati nobis nostrum unde et eaque impedit consequuntur earum delectus eius ea iure possimus assumenda.    
 `;
+    mainContainer.appendChild(articleContainer);
+    body.appendChild(mainContainer);
   } else {
     updateArticle(window.location.pathname);
   }
@@ -27,7 +30,7 @@ function main() {
 
 function updateArticle(currentPath) {
   const article = document.getElementById("article");
-
+  console.log(article);
   article.innerHTML = "";
   currentPath = currentPath.replace("/", "");
   let data;
