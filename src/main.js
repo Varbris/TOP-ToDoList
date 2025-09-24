@@ -57,7 +57,8 @@ function updateArticle(currentPath) {
   } else {
     const myProjectList = myLocal().getStorage("myProject");
     myProjectList.forEach(function (element) {
-      if (element === currentPath) {
+      console.log(element, currentPath);
+      if (element.data === currentPath) {
         generateYourTodos(data, currentPath, article);
       }
     });
