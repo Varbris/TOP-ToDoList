@@ -12,7 +12,11 @@ function createCustomElement(tagName) {
   const addAttribute = function (attributeName, attributeValue) {
     element.setAttribute(attributeName, attributeValue);
   };
-  return { element, addAttribute, addInner, addChild };
+
+  const addEvent = function (eventName, whatTodo) {
+    element.addEventListener(eventName, whatTodo);
+  };
+  return { element, addAttribute, addInner, addChild, addEvent };
 }
 
 function createNavLi(navLinkClass, navLinkHtml = null, navLinkInner = null) {

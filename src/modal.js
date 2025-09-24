@@ -49,8 +49,8 @@ function addTaskModal() {
       } else {
         myProjectData.forEach((element) => {
           const option = createCustomElement("option");
-          option.addAttribute("value", element);
-          option.addInner(element);
+          option.addAttribute("value", element.data);
+          option.addInner(element.title);
           selectProject.addChild(option.element);
         });
       }

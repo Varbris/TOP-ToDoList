@@ -55,17 +55,12 @@ function updateArticle(currentPath) {
   ) {
     generateMyProject(data, currentPath, article);
   } else {
-    const myProjectList = myLocal().getStorage("myProject");
-    myProjectList.forEach(function (element) {
-      console.log(element, currentPath);
-      if (element.data === currentPath) {
-        generateYourTodos(data, currentPath, article);
-      }
-    });
+    generateEachProject(currentPath, data);
   }
 }
 
 function generateYourTodos(data, currentPath, container) {
+  container.innerText = "";
   data.forEach(function (item) {
     let date =
       item.date === "No Date"
@@ -93,16 +88,32 @@ function generateYourTodos(data, currentPath, container) {
   });
 }
 
-function generateMyProject(data, currentPath, container) {
+function generateMyProject(projectTitle, currentPath, container) {
   const h1 = createCustomElement("h1");
   h1.addInner("My Project");
-  container.appendChild(h1.element);
-  data.forEach(function (element) {
-    const a = createCustomElement("a");
 
+  container.appendChild(h1.element);
+
+  projectTitle.forEach(function (element) {
+    const projectData = myLocal().getStorage(element.data);
+    const a = createCustomElement("a");
     a.addInner(element.title);
     a.addAttribute("href", `/${currentPath}/${element.data}`);
+    a.addEvent("click", function (event) {
+      event.preventDefault();
+      window.history.pushState({}, "", event.target.href);
+      generateEachProject(currentPath, projectData);
+    });
     container.appendChild(a.element);
+  });
+}
+
+function generateEachProject(currentPath, data) {
+  const myProjectList = myLocal().getStorage("myProject");
+  myProjectList.forEach(function (element) {
+    if (currentPath === "myProject" || element.data === currentPath) {
+      generateYourTodos(data, element.title, article);
+    }
   });
 }
 
