@@ -221,3 +221,29 @@ main {
   display: none;
   max-width: 100%;
 }
+
+dialog {
+  margin: auto auto;
+  max-width: fit-content;
+}
+
+dialog form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 100%;
+}
+
+dialog form .form-row {
+  min-width: 0;
+
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  max-width: 100%;
+  justify-content: center;
+  gap: 10px;
+}
+
+dialog form .form-row > * {
+  min-width: 0;
+}
