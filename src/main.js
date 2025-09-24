@@ -39,10 +39,16 @@ function updateArticle(currentPath) {
   }
 
   //!fix this when data is missing from local storage
-  if (data === null) {
+  console.log(currentPath);
+  if (data === null && currentPath === "YourTodos") {
     article.innerText = "You Dont have Any Data !, just add some task dude";
     return 0;
+  } else if (data === null && currentPath === "myProject") {
+    article.innerText =
+      "You Dont have Any project Data !, just add new Project dude and add some stuff in it";
+    return 0;
   }
+
   if (
     currentPath !== "/" &&
     currentPath !== "" &&
