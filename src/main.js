@@ -27,7 +27,7 @@ function main() {
 
 function updateArticle(currentPath) {
   const article = document.getElementById("article");
-  article.classList.add("article");
+
   article.innerHTML = "";
   currentPath = currentPath.replace("/", "");
   let data;
@@ -60,7 +60,7 @@ function updateArticle(currentPath) {
 }
 
 function generateYourTodos(data, currentPath, container) {
-  container.innerText = "";
+  container;
   data.forEach(function (item) {
     let date =
       item.date === "No Date"
@@ -101,7 +101,6 @@ function generateMyProject(projectTitle, currentPath, container) {
     a.addAttribute("href", `/${currentPath}/${element.data}`);
     a.addEvent("click", function (event) {
       event.preventDefault();
-      window.history.pushState({}, "", event.target.href);
       generateEachProject(currentPath, projectData);
     });
     container.appendChild(a.element);
