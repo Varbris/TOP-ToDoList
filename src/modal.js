@@ -14,7 +14,7 @@ function addTaskModal() {
   testForm.addInputField("text", "description");
   testForm.addInputField("date", "Due");
   const projectOption = [
-    testForm.addDropdownOption("YourTodos", "Your ToDos"),
+    testForm.addDropdownOption("YourTodos", "Your To Dos"),
     testForm.addDropdownOption("YourProject", "Your Project"),
   ];
   testForm.addDropDown("Add To: ", projectOption, "projectDropDown");
@@ -92,12 +92,14 @@ function addTaskModal() {
         title: title.value,
         description: description.value,
         date: date,
+        safeTo: addToProject.value,
         priority: priority.value,
       };
 
       if (sendToProject !== null) {
         myLocal().createStorage(sendToProject.value);
         const myProject = myLocal().getStorage(sendToProject.value);
+        myTask.projectName = sendToProject.value;
         myProject.push(myTask);
         myLocal().setStorage(sendToProject.value, myProject);
       } else {
@@ -147,4 +149,90 @@ function addProjectModal() {
   return myModal;
 }
 
-export { addTaskModal, addProjectModal };
+function editTaskModal(data) {
+  const modal = document.createElement("dialog");
+  const testForm = new Form();
+  const myForm = testForm.myForm;
+  console.log(typeof data.date);
+  testForm.addInputField("text", "title", data.title);
+  testForm.addInputField("text", "description", data.description);
+  testForm.addInputField("date", "Due", data.date);
+  const projectOption = [
+    testForm.addDropdownOption("YourTodos", "Your ToDos", data.safeTo),
+    testForm.addDropdownOption("YourProject", "Your Project", data.safeTo),
+  ];
+  testForm.addDropDown("Add To: ", projectOption, "projectDropDown");
+
+  const priorityOption = [
+    testForm.addDropdownOption("Priority1", "Priority 1", data.priority),
+    testForm.addDropdownOption("Priority2", "Priority 2", data.priority),
+    testForm.addDropdownOption("Priority3", "Priority 3", data.priority),
+    testForm.addDropdownOption("Priority4", "Priority 4", data.priority),
+  ];
+  testForm.addDropDown("Priority: ", priorityOption, "priorityDropDown");
+
+  testForm.addButton("add-task", "addTask", "Add");
+  testForm.addButton("cancel-button", "cancelButton", "Cancel");
+  modal.appendChild(myForm);
+
+  var dropDownClickNumber = 0;
+  myForm.addEventListener("click", function (event) {
+    if (
+      event.target.id === "projectDropDown" &&
+      event.target.value === "YourProject" &&
+      dropDownClickNumber < 1
+    ) {
+      const selectProject = createCustomElement("select");
+      selectProject.addAttribute("id", "sendToProject");
+      const myProjectData = myLocal().getStorage("myProject");
+
+      if (myProjectData == null) {
+        const option = createCustomElement("option");
+        option.addInner("You dont have a project");
+        selectProject.addChild(option.element);
+        selectProject.element.disabled = true;
+      } else {
+        myProjectData.forEach((element) => {
+          const option = createCustomElement("option");
+          option.addAttribute("value", element.data);
+          if (element.data === data.projectName) {
+            console.log("awikwerkowekorwekorwrekowerokowker");
+            option.addAttribute("selected", "selected");
+          }
+          option.addInner(element.title);
+          selectProject.addChild(option.element);
+        });
+      }
+
+      testForm.insertInputAfter(event.target, selectProject.element);
+      dropDownClickNumber = 1;
+    } else if (
+      event.target.id === "projectDropDown" &&
+      event.target.value === "YourTodos"
+    ) {
+      const toProject = document.getElementById("sendToProject");
+      dropDownClickNumber = 0;
+      if (toProject !== null) {
+        toProject.remove();
+      }
+    }
+  });
+
+  myForm.addEventListener("click", function (event) {
+    if (event.target.id === "addTask") {
+      event.preventDefault();
+
+      updateArticle(window.location.pathname);
+      modal.close();
+    }
+
+    if (event.target.id === "cancelButton") {
+      event.preventDefault();
+      modal.close();
+    }
+  });
+
+  return modal;
+}
+
+export { addTaskModal, addProjectModal, editTaskModal };

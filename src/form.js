@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import { createButton } from "./create.js";
 
 export default class Form {
@@ -14,7 +15,7 @@ export default class Form {
     referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
   }
 
-  addInputField(type, title) {
+  addInputField(type, title, data = null) {
     const div = document.createElement("div");
     div.classList.add("form-row");
     const label = document.createElement("label");
@@ -24,6 +25,17 @@ export default class Form {
     inputField.setAttribute("type", type);
     inputField.setAttribute("id", title);
     inputField.setAttribute("name", title);
+    if (data !== null) {
+      if (Array.isArray(data) && type === "date") {
+        console.log();
+        inputField.setAttribute(
+          "value",
+          format(new Date(data[0], data[1] - 1, data[2]), "y-MM-dd")
+        );
+      } else {
+        inputField.setAttribute("value", data);
+      }
+    }
     div.append(label);
     div.append(inputField);
 
@@ -51,9 +63,12 @@ export default class Form {
     this.form.appendChild(div);
   }
 
-  addDropdownOption(value, name) {
+  addDropdownOption(value, name, data = null) {
     const option = document.createElement("option");
     option.setAttribute("value", value);
+    if (data !== null && data === value) {
+      option.setAttribute("selected", "selected");
+    }
     option.innerText = name;
     return option;
   }

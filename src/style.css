@@ -187,7 +187,7 @@ main {
   padding: 5px 10px;
   display: grid;
   grid-template-areas:
-    "header header header"
+    "header header control"
     "body body control";
 }
 
@@ -201,8 +201,23 @@ main {
 
 .card-control {
   grid-area: control;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 5px;
+}
+
+.card-control button {
+  width: 40%;
+  height: 60%;
+  border: none;
+  background: rgba(127, 255, 212, 0.349);
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
   justify-self: center;
-  align-self: center;
+}
+
+.card-control button:hover {
+  background: rgb(127, 255, 212);
 }
 
 .priority-box {

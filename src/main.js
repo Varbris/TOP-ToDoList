@@ -4,6 +4,7 @@ import {
   createAnchor,
   createNavLi,
 } from "./create";
+import { editTaskModal } from "./modal";
 import myLocal from "./myLocal";
 
 const { format } = require("date-fns");
@@ -30,7 +31,6 @@ function main() {
 
 function updateArticle(currentPath) {
   const article = document.getElementById("article");
-  console.log(article);
   article.innerHTML = "";
   currentPath = currentPath.replace("/", "");
   let data;
@@ -42,7 +42,7 @@ function updateArticle(currentPath) {
   }
 
   //!fix this when data is missing from local storage
-  console.log(currentPath);
+
   if (data === null && currentPath === "YourTodos") {
     article.innerText = "You Dont have Any Data !, just add some task dude";
     return 0;
@@ -104,6 +104,13 @@ function generateYourTodos(data, currentPath, container) {
             data.splice(i, 1);
             myLocal().setStorage(currentPath, data);
             generateYourTodos(data, currentPath, container);
+          } else if (
+            element === "Edit" &&
+            data[i].id === Number(event.target.dataset.id)
+          ) {
+            const modal = editTaskModal(data[i]);
+            container.appendChild(modal);
+            modal.showModal();
           }
         });
         controlDiv.addChild(btn.element);
