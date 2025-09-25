@@ -74,17 +74,17 @@ function generateYourTodos(data, currentPath, container) {
   if (data === null) {
     container.innerText = "You Dont have Any Data !, just add some task dude";
   } else {
-    data.forEach(function (item) {
+    for (let i = 0; i < data.length; i++) {
       let date =
-        item.date === "No Date"
-          ? item.date
+        data[i].date === "No Date"
+          ? data[i].date
           : format(
-              new Date(item.date[0], item.date[1] - 1, item.date[2]),
+              new Date(data[i].date[0], data[i].date[1] - 1, data[i].date[2]),
               "y-MMM-d"
             );
       const pDate = createCustomElement("p");
       pDate.addInner(date);
-      const card = createCard(item.title, item.description);
+      const card = createCard(data[i].title, data[i].description);
       const href = createCustomElement("a");
       const div1 = createCustomElement("div");
       const controlDiv = createCustomElement("div");
@@ -94,22 +94,34 @@ function generateYourTodos(data, currentPath, container) {
         const btn = createCustomElement("button");
         btn.addAttribute("id", element + "TodosBtn");
         btn.addInner(element);
+        btn.addAttribute("data-id");
+        btn.addAttribute("data-id", data[i].id);
+        btn.addEvent("click", function (event) {
+          if (
+            element === "Delete" &&
+            data[i].id === Number(event.target.dataset.id)
+          ) {
+            data.splice(i, 1);
+            myLocal().setStorage(currentPath, data);
+            generateYourTodos(data, currentPath, container);
+          }
+        });
         controlDiv.addChild(btn.element);
       });
 
       div1.addAttribute("class", "priority-box");
-      div1.addInner((document.createElement("p").innerText = item.priority));
+      div1.addInner((document.createElement("p").innerText = data[i].priority));
       const p = document.createElement("p");
       p.innerText = currentPath;
       div1.addChild(p);
       href.addAttribute("href", "https://google.com");
-      href.addInner(item.priority);
+      href.addInner(data[i].priority);
       card.appendBody(pDate.element);
       card.appendBody(div1.element);
       card.addToCard(controlDiv.element);
 
       container.appendChild(card.card);
-    });
+    }
   }
 }
 
@@ -134,9 +146,14 @@ function generateMyProject(projectTitle, currentPath, container) {
 
 function generateEachProject(currentPath, data) {
   const myProjectList = myLocal().getStorage("myProject");
+  if (myProjectList === null) {
+    return 0;
+  }
   myProjectList.forEach(function (element) {
     if (currentPath === "myProject" || element.data === currentPath) {
       generateYourTodos(data, element.title, article);
+    } else {
+      return 0;
     }
   });
 }

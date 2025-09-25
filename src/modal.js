@@ -88,6 +88,7 @@ function addTaskModal() {
         });
       }
       const myTask = {
+        id: Math.floor(Math.random() * 1000),
         title: title.value,
         description: description.value,
         date: date,
