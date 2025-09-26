@@ -113,7 +113,7 @@ function createNavbar() {
     const myProjectList = createCustomElement("ul");
     myProjectList.addAttribute("class", "project-list");
     myProjectList.element.innerText = "";
-    console.log(myProjectList.element);
+
     myProject.forEach((element) => {
       const li = createCustomElement("li");
       li.addAttribute("class", "project-item");

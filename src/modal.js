@@ -176,29 +176,31 @@ function editTaskModal(data) {
   modal.appendChild(myForm);
 
   var dropDownClickNumber = 0;
+  const selectProject = createCustomElement("select");
+  const option = createCustomElement("option");
+  selectProject.addAttribute("id", "sendToProject");
+  const myProjectData = myLocal().getStorage("myProject");
+
+  if ("projectName" in data) {
+    myProjectData.forEach((element) => {
+      option.addAttribute("value", element.data);
+      option.addInner(element.title);
+      selectProject.addChild(option.element);
+    });
+  }
   myForm.addEventListener("click", function (event) {
     if (
       event.target.id === "projectDropDown" &&
       event.target.value === "YourProject" &&
       dropDownClickNumber < 1
     ) {
-      const selectProject = createCustomElement("select");
-      selectProject.addAttribute("id", "sendToProject");
-      const myProjectData = myLocal().getStorage("myProject");
-
       if (myProjectData == null) {
-        const option = createCustomElement("option");
         option.addInner("You dont have a project");
         selectProject.addChild(option.element);
         selectProject.element.disabled = true;
       } else {
         myProjectData.forEach((element) => {
-          const option = createCustomElement("option");
           option.addAttribute("value", element.data);
-          if (element.data === data.projectName) {
-            console.log("awikwerkowekorwekorwrekowerokowker");
-            option.addAttribute("selected", "selected");
-          }
           option.addInner(element.title);
           selectProject.addChild(option.element);
         });
