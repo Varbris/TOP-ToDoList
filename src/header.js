@@ -23,7 +23,7 @@ export function header() {
   navBar.appendChild(navbarBrand.element);
 
   const navbarList = createNavbar();
-
+  console.log(navbarList);
   navBar.appendChild(navbarList);
   headerContainer.appendChild(navBar);
   const myTaskModal = addTaskModal();

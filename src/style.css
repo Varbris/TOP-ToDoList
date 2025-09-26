@@ -133,6 +133,10 @@ header {
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
+.nav-item a:focus {
+  background-color: rgb(253, 252, 235);
+}
+
 .nav-item {
   flex: 1 1 2vw;
   min-width: 0;
