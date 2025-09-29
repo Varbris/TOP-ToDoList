@@ -23,11 +23,11 @@ export function header() {
   navBar.appendChild(navbarBrand.element);
 
   const navbarList = createNavbar();
-  console.log(navbarList);
   navBar.appendChild(navbarList);
   headerContainer.appendChild(navBar);
   const myTaskModal = addTaskModal();
   const myProjectModal = addProjectModal();
+
   navbarList.addEventListener("click", function (event) {
     if (event.target.id === "addTaskButton") {
       event.preventDefault();
@@ -68,16 +68,28 @@ export function header() {
 function createNavbar() {
   const navbarList = document.createElement("ul");
   navbarList.setAttribute("class", "navbar-nav");
-  navbarList.appendChild(
-    createNavLi(
-      "nav-item",
-      createButton("add-task-button", "addTaskButton", "Add Task")
-    )
-  );
-  navbarList.appendChild(
-    createNavLi("nav-item", createAnchor("Your Todos", "/YourTodos"))
-  );
+  navbarList.appendChild(createAddTaskButton());
+  navbarList.appendChild(createYourTodos());
+  navbarList.appendChild(createYourProject());
+  navbarList.appendChild(yourProjectList());
 
+  return navbarList;
+}
+
+//navbar component
+
+function createAddTaskButton() {
+  return createNavLi(
+    "nav-item",
+    createButton("add-task-button", "addTaskButton", "Add Task")
+  );
+}
+
+function createYourTodos() {
+  return createNavLi("nav-item", createAnchor("Your Todos", "/YourTodos"));
+}
+
+function createYourProject() {
   const projectElement = [
     createAnchor("Your Project", "/myProject"),
     createButton("add-project-btn", "addProjectButton", ""),
@@ -87,22 +99,26 @@ function createNavbar() {
   projectElement.forEach(function (element) {
     myProjectLink.addChild(element);
   });
-  navbarList.appendChild(myProjectLink.element);
 
   const myImg = document.createElement("img");
   myImg.setAttribute("src", addIcon);
-  myImg.setAttribute("class", "add-icon");
+  myImg.setAttribute("class", "add-icon-hidden");
   myImg.setAttribute("id", "addIcon");
 
-  const myListLink = navbarList.getElementsByClassName("nav-item");
+  myProjectLink.addChild(myImg);
+  myProjectLink.addEvent("mouseover", function (event) {
+    if (event.target.nodeName === "A" || event.target.nodeName === "BUTTON") {
+      myImg.classList.remove("add-icon-hidden");
+      myImg.classList.add("add-icon-show");
+    } else {
+      myImg.classList.remove("add-icon-show");
+      myImg.classList.add("add-icon-hidden");
+    }
+  });
+  return myProjectLink.element;
+}
 
-  for (let item of myListLink) {
-    item.addEventListener("mouseover", function (event) {
-      if (event.target.id === "addProjectButton") {
-        event.target.appendChild(myImg);
-      }
-    });
-  }
+function yourProjectList() {
   const projectList = createCustomElement("li");
   projectList.addAttribute("class", "nav-item");
   if (myLocal().isExist("myProject")) {
@@ -129,7 +145,5 @@ function createNavbar() {
     myProjectContainer.addChild(myProjectList.element);
     projectList.addChild(myProjectList.element);
   }
-  navbarList.appendChild(projectList.element);
-
-  return navbarList;
+  return projectList.element;
 }

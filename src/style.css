@@ -254,9 +254,12 @@ main {
 .add-project-btn:active {
   width: 35px;
 }
-.add-icon {
+.add-icon-hidden {
   display: none;
-  max-width: 100%;
+}
+.add-icon-show {
+  display: inline;
+  max-width: 10%;
 }
 
 dialog {
