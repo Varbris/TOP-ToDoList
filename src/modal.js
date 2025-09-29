@@ -4,122 +4,12 @@ import { header } from "./header.js";
 import { main } from "./main.js";
 import myLocal from "./myLocal.js";
 import { createCustomElement } from "./create.js";
+import { createAddTaskForm } from "./component.js";
 
 function addTaskModal() {
   const modal = document.createElement("dialog");
-
-  const testForm = new Form();
-  const myForm = testForm.myForm;
-  testForm.addInputField("text", "title");
-  testForm.addInputField("text", "description");
-  testForm.addInputField("date", "Due");
-  const projectOption = [
-    testForm.addDropdownOption("YourTodos", "Your To Dos"),
-    testForm.addDropdownOption("YourProject", "Your Project"),
-  ];
-  testForm.addDropDown("Add To: ", projectOption, "projectDropDown");
-
-  const priorityOption = [
-    testForm.addDropdownOption("Priority1", "Priority 1"),
-    testForm.addDropdownOption("Priority2", "Priority 2"),
-    testForm.addDropdownOption("Priority3", "Priority 3"),
-    testForm.addDropdownOption("Priority4", "Priority 4"),
-  ];
-  testForm.addDropDown("Priority: ", priorityOption, "priorityDropDown");
-
-  testForm.addButton("add-task", "addTask", "Add");
-  testForm.addButton("cancel-button", "cancelButton", "Cancel");
-  modal.appendChild(myForm);
-
-  var dropDownClickNumber = 0;
-  myForm.addEventListener("click", function (event) {
-    if (
-      event.target.id === "projectDropDown" &&
-      event.target.value === "YourProject" &&
-      dropDownClickNumber < 1
-    ) {
-      const selectProject = createCustomElement("select");
-      selectProject.addAttribute("id", "sendToProject");
-      const myProjectData = myLocal().getStorage("myProject");
-
-      if (myProjectData == null) {
-        const option = createCustomElement("option");
-        option.addInner("You dont have a project");
-        selectProject.addChild(option.element);
-        selectProject.element.disabled = true;
-      } else {
-        myProjectData.forEach((element) => {
-          const option = createCustomElement("option");
-          option.addAttribute("value", element.data);
-          option.addInner(element.title);
-          selectProject.addChild(option.element);
-        });
-      }
-
-      testForm.insertInputAfter(event.target, selectProject.element);
-      dropDownClickNumber = 1;
-    } else if (
-      event.target.id === "projectDropDown" &&
-      event.target.value === "YourTodos"
-    ) {
-      const toProject = document.getElementById("sendToProject");
-      dropDownClickNumber = 0;
-      if (toProject !== null) {
-        toProject.remove();
-      }
-    }
-  });
-
-  myForm.addEventListener("click", function (event) {
-    if (event.target.id === "addTask") {
-      event.preventDefault();
-      const addToProject = document.getElementById("projectDropDown");
-      const sendToProject = document.getElementById("sendToProject");
-      let title = document.getElementById("title");
-      let description = document.getElementById("description");
-      let date = document.getElementById("Due");
-      const priority = document.getElementById("priorityDropDown");
-
-      if (date.value === null || date.value === "") {
-        date = "No Date";
-      } else {
-        date = date.value.split("-").map(function (item) {
-          return parseInt(item);
-        });
-      }
-      const myTask = {
-        id: Math.floor(Math.random() * 1000),
-        title: title.value,
-        description: description.value,
-        date: date,
-        safeTo: addToProject.value,
-        priority: priority.value,
-      };
-
-      if (sendToProject !== null) {
-        myLocal().createStorage(sendToProject.value);
-        const myProject = myLocal().getStorage(sendToProject.value);
-        myTask.projectName = sendToProject.value;
-        myProject.push(myTask);
-        myLocal().setStorage(sendToProject.value, myProject);
-      } else {
-        myLocal().createStorage(addToProject.value);
-        const myStorage = myLocal().getStorage(addToProject.value);
-        myStorage.push(myTask);
-        myLocal().setStorage(addToProject.value, myStorage);
-      }
-
-      let test = document.getElementById("article");
-      updateArticle(window.location.pathname);
-      modal.close();
-    }
-
-    if (event.target.id === "cancelButton") {
-      event.preventDefault();
-      modal.close();
-    }
-  });
-
+  modal.setAttribute("id", "addTaskModal");
+  modal.appendChild(createAddTaskForm(modal));
   return modal;
 }
 

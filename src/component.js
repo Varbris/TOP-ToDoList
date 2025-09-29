@@ -1,5 +1,3 @@
-//navbar component start///
-
 import {
   createAnchor,
   createButton,
@@ -8,9 +6,15 @@ import {
 } from "./create";
 import addIcon from "./add.png";
 import myLocal from "./myLocal.js";
-import { updateArticle } from "./main.js";
-import { perProjectClickEvent } from "./event.js";
+import {
+  addTaskCancelButtonEvent,
+  addTaskFormClickEvent,
+  addToDropdownEvent,
+  perProjectClickEvent,
+} from "./event.js";
+import Form from "./form.js";
 
+//navbar component start///
 function createNavbarBrand() {
   const navbarBrand = createCustomElement("div");
   navbarBrand.addChild(createAnchor("To Do List", "/"));
@@ -81,10 +85,68 @@ function yourProjectList() {
 }
 //navbar component end//
 
+//modal component start//
+function createAddTaskForm(modal) {
+  const testForm = new Form();
+  const myForm = testForm.myForm;
+  testForm.addInputField("text", "title");
+  testForm.addInputField("text", "description");
+  testForm.addInputField("date", "Due");
+  const projectOption = [
+    testForm.addDropdownOption("YourTodos", "Your To Dos"),
+    testForm.addDropdownOption("YourProject", "Your Project"),
+  ];
+  testForm.addDropDown("Add To: ", projectOption, "projectDropDown");
+
+  const priorityOption = [
+    testForm.addDropdownOption("Priority1", "Priority 1"),
+    testForm.addDropdownOption("Priority2", "Priority 2"),
+    testForm.addDropdownOption("Priority3", "Priority 3"),
+    testForm.addDropdownOption("Priority4", "Priority 4"),
+  ];
+  testForm.addDropDown("Priority: ", priorityOption, "priorityDropDown");
+
+  testForm.addButton("add-task", "addTask", "Add");
+  testForm.addButton("cancel-button", "cancelButton", "Cancel");
+
+  myForm.addEventListener("click", (event) => {
+    addToDropdownEvent(event, testForm);
+  });
+
+  myForm.addEventListener("click", function (event) {
+    addTaskFormClickEvent(event, modal);
+  });
+
+  return myForm;
+}
+
+function createSendToProjectDropDown() {
+  const selectProject = createCustomElement("select");
+  selectProject.addAttribute("id", "sendToProject");
+  const myProjectData = myLocal().getStorage("myProject");
+
+  if (myProjectData == null) {
+    const option = createCustomElement("option");
+    option.addInner("You dont have a project");
+    selectProject.addChild(option.element);
+    selectProject.element.disabled = true;
+  } else {
+    myProjectData.forEach((element) => {
+      const option = createCustomElement("option");
+      option.addAttribute("value", element.data);
+      option.addInner(element.title);
+      selectProject.addChild(option.element);
+    });
+  }
+  return selectProject.element;
+}
+
 export {
   createNavbarBrand,
   createAddTaskButton,
   createYourTodos,
   createYourProject,
   yourProjectList,
+  createAddTaskForm,
+  createSendToProjectDropDown,
 };
