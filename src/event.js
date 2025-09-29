@@ -35,4 +35,10 @@ function navbarClickEvent(event) {
   }
 }
 
-export { navbarClickEvent };
+function perProjectClickEvent(event) {
+  event.preventDefault();
+  window.history.pushState({}, "", event.target.href);
+  updateArticle(window.location.pathname);
+}
+
+export { navbarClickEvent, perProjectClickEvent };
