@@ -14,6 +14,7 @@ import { el } from "date-fns/locale";
 export function header() {
   const body = document.getElementById("body");
   const headerContainer = document.createElement("header");
+  headerContainer.setAttribute("id", "header");
   body.innerText = "";
 
   const navBar = createNavbar();

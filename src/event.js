@@ -1,8 +1,10 @@
 import { addProjectModal, addTaskModal } from "./modal.js";
+import { updateArticle } from "./main.js";
 function navbarClickEvent(event) {
-  const headerContainer = document.createElement("header");
+  const headerContainer = document.getElementById("header");
   const myTaskModal = addTaskModal();
   const myProjectModal = addProjectModal();
+
   if (event.target.id === "addTaskButton") {
     event.preventDefault();
     event.target.href = "/";
