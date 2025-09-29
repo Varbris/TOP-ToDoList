@@ -94,27 +94,22 @@ function createYourProject() {
     createAnchor("Your Project", "/myProject"),
     createButton("add-project-btn", "addProjectButton", ""),
   ];
-  const myProjectLink = createCustomElement("li");
-  myProjectLink.addAttribute("class", "nav-item");
-  projectElement.forEach(function (element) {
-    myProjectLink.addChild(element);
-  });
-
   const myImg = document.createElement("img");
   myImg.setAttribute("src", addIcon);
   myImg.setAttribute("class", "add-icon-hidden");
   myImg.setAttribute("id", "addIcon");
 
-  myProjectLink.addChild(myImg);
-  myProjectLink.addEvent("mouseover", function (event) {
-    if (event.target.nodeName === "A" || event.target.nodeName === "BUTTON") {
-      myImg.classList.remove("add-icon-hidden");
-      myImg.classList.add("add-icon-show");
+  const myProjectLink = createCustomElement("li");
+  myProjectLink.addAttribute("class", "nav-item");
+  projectElement.forEach(function (element) {
+    if (element.id === "addProjectButton") {
+      element.appendChild(myImg);
+      myProjectLink.addChild(element);
     } else {
-      myImg.classList.remove("add-icon-show");
-      myImg.classList.add("add-icon-hidden");
+      myProjectLink.addChild(element);
     }
   });
+
   return myProjectLink.element;
 }
 

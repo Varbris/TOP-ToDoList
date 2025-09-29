@@ -254,10 +254,7 @@ main {
 .add-project-btn:active {
   width: 35px;
 }
-.add-icon-hidden {
-  display: none;
-}
-.add-icon-show {
+.add-icon {
   display: inline;
   max-width: 10%;
 }
