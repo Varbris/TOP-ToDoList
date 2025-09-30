@@ -47,22 +47,18 @@ function perProjectClickEvent(event) {
 
 //form event
 function addToDropdownEvent(event, testForm) {
-  var dropDownClickNumber = 0;
   if (
     event.target.id === "projectDropDown" &&
-    event.target.value === "YourProject" &&
-    dropDownClickNumber < 1
+    event.target.value === "YourProject"
   ) {
     const selectProject = createSendToProjectDropDown();
-    console.log(testForm);
+
     testForm.insertInputAfter(event.target, selectProject);
-    dropDownClickNumber = 1;
   } else if (
     event.target.id === "projectDropDown" &&
     event.target.value === "YourTodos"
   ) {
     const toProject = document.getElementById("sendToProject");
-    dropDownClickNumber = 0;
     if (toProject !== null) {
       toProject.remove();
     }

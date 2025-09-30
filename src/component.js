@@ -87,30 +87,31 @@ function yourProjectList() {
 //navbar component end//
 
 //modal component start//
-function createAddTaskForm(modal) {
+function createAddTaskForm(modal, data = "") {
   const testForm = new Form();
   const myForm = testForm.myForm;
-  testForm.addInputField("text", "title");
-  testForm.addInputField("text", "description");
-  testForm.addInputField("date", "Due");
+
+  testForm.addInputField("text", "title", data.title);
+  testForm.addInputField("text", "description", data.description);
+  testForm.addInputField("date", "Due", data.date);
   const projectOption = [
-    testForm.addDropdownOption("YourTodos", "Your To Dos"),
-    testForm.addDropdownOption("YourProject", "Your Project"),
+    testForm.addDropdownOption("YourTodos", "Your ToDos", data.safeTo),
+    testForm.addDropdownOption("YourProject", "Your Project", data.safeTo),
   ];
   testForm.addDropDown("Add To: ", projectOption, "projectDropDown");
 
   const priorityOption = [
-    testForm.addDropdownOption("Priority1", "Priority 1"),
-    testForm.addDropdownOption("Priority2", "Priority 2"),
-    testForm.addDropdownOption("Priority3", "Priority 3"),
-    testForm.addDropdownOption("Priority4", "Priority 4"),
+    testForm.addDropdownOption("Priority1", "Priority 1", data.priority),
+    testForm.addDropdownOption("Priority2", "Priority 2", data.priority),
+    testForm.addDropdownOption("Priority3", "Priority 3", data.priority),
+    testForm.addDropdownOption("Priority4", "Priority 4", data.priority),
   ];
   testForm.addDropDown("Priority: ", priorityOption, "priorityDropDown");
 
   testForm.addButton("add-task", "addTask", "Add");
   testForm.addButton("cancel-button", "cancelButton", "Cancel");
 
-  myForm.addEventListener("click", (event) => {
+  myForm.addEventListener("change", (event) => {
     addToDropdownEvent(event, testForm);
   });
 
