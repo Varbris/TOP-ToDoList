@@ -26,18 +26,20 @@ function editTaskModal(data) {
   modal.appendChild(myForm);
 
   const selectProject = createCustomElement("select");
-  const option = createCustomElement("option");
+
   selectProject.addAttribute("id", "sendToProject");
   const myProjectData = myLocal().getStorage("myProject");
 
   if ("projectName" in data) {
     myProjectData.forEach((element) => {
+      console.log(element);
+      const option = createCustomElement("option");
       option.addAttribute("value", element.data);
       option.addInner(element.title);
       selectProject.addChild(option.element);
-      console.log(selectProject.element);
     });
 
+    console.log(selectProject.element);
     const target = Array.from(myForm.querySelectorAll(".form-row")).find(
       function (item) {
         return item.querySelector("#projectDropDown");
