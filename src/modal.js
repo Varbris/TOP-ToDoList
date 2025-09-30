@@ -4,12 +4,23 @@ import { header } from "./header.js";
 import { main } from "./main.js";
 import myLocal from "./myLocal.js";
 import { createCustomElement } from "./create.js";
-import { createAddProjectForm, createAddTaskForm } from "./component.js";
+import {
+  createAddProjectForm,
+  createAddTaskForm,
+  createSendToProjectDropDown,
+} from "./component.js";
+import { addTaskFormClickEvent, addToDropdownEvent } from "./event.js";
 
 function addTaskModal() {
   const modal = document.createElement("dialog");
   modal.setAttribute("id", "addTaskModal");
-  modal.appendChild(createAddTaskForm(modal));
+  const myForm = createAddTaskForm(modal);
+
+  myForm.addEventListener("click", function (event) {
+    addTaskFormClickEvent(event, modal);
+  });
+  modal.appendChild(myForm);
+
   return modal;
 }
 
@@ -25,28 +36,14 @@ function editTaskModal(data) {
   const myForm = createAddTaskForm(modal, data);
   modal.appendChild(myForm);
 
-  const selectProject = createCustomElement("select");
-
-  selectProject.addAttribute("id", "sendToProject");
-  const myProjectData = myLocal().getStorage("myProject");
-
+  //target if data exists, dropdown immediately show up
   if ("projectName" in data) {
-    myProjectData.forEach((element) => {
-      console.log(element);
-      const option = createCustomElement("option");
-      option.addAttribute("value", element.data);
-      option.addInner(element.title);
-      selectProject.addChild(option.element);
-    });
-
-    console.log(selectProject.element);
     const target = Array.from(myForm.querySelectorAll(".form-row")).find(
       function (item) {
         return item.querySelector("#projectDropDown");
       }
     );
-
-    myForm.insertBefore(selectProject.element, target.nextSibling);
+    myForm.insertBefore(createSendToProjectDropDown(), target.nextSibling);
   }
 
   return modal;
