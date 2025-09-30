@@ -7,6 +7,7 @@ import {
 import addIcon from "./add.png";
 import myLocal from "./myLocal.js";
 import {
+  addProjectSubmitEvent,
   addTaskCancelButtonEvent,
   addTaskFormClickEvent,
   addToDropdownEvent,
@@ -141,6 +142,17 @@ function createSendToProjectDropDown() {
   return selectProject.element;
 }
 
+function createAddProjectForm(modal) {
+  const myForm = new Form();
+  const getForm = myForm.myForm;
+  myForm.addInputField("text", "name");
+  myForm.addButton("form-add-project", "formAddProject", "Add Project");
+  getForm.addEventListener("submit", function (event) {
+    addProjectSubmitEvent(event, modal);
+  });
+  return getForm;
+}
+
 export {
   createNavbarBrand,
   createAddTaskButton,
@@ -149,4 +161,5 @@ export {
   yourProjectList,
   createAddTaskForm,
   createSendToProjectDropDown,
+  createAddProjectForm,
 };

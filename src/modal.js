@@ -4,7 +4,7 @@ import { header } from "./header.js";
 import { main } from "./main.js";
 import myLocal from "./myLocal.js";
 import { createCustomElement } from "./create.js";
-import { createAddTaskForm } from "./component.js";
+import { createAddProjectForm, createAddTaskForm } from "./component.js";
 
 function addTaskModal() {
   const modal = document.createElement("dialog");
@@ -15,27 +15,8 @@ function addTaskModal() {
 
 function addProjectModal() {
   const myModal = document.createElement("dialog");
-  const myForm = new Form();
-  const getForm = myForm.myForm;
-  myForm.addInputField("text", "name");
-  myForm.addButton("form-add-project", "formAddProject", "Add Project");
-  getForm.addEventListener("submit", function (event) {
-    event.preventDefault();
-    const storageName = "myProject";
-    const name = document.getElementById("name");
-    myLocal().createStorage(storageName);
-    const myStorage = myLocal().getStorage(storageName);
-    const myProject = {
-      title: name.value,
-      data: name.value.replaceAll(" ", ""),
-    };
-    myStorage.push(myProject);
-    myLocal().setStorage(storageName, myStorage);
-    header();
-    main();
-    myModal.close();
-  });
-  myModal.appendChild(getForm);
+  const myForm = createAddProjectForm(myModal);
+  myModal.appendChild(myForm);
   return myModal;
 }
 

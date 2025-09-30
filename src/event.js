@@ -2,6 +2,8 @@ import { addProjectModal, addTaskModal } from "./modal.js";
 import { updateArticle } from "./main.js";
 import { createSendToProjectDropDown } from "./component.js";
 import myLocal from "./myLocal.js";
+import { header } from "./header.js";
+import { main } from "./main.js";
 function navbarClickEvent(event) {
   const headerContainer = document.getElementById("header");
   const myTaskModal = addTaskModal();
@@ -122,10 +124,27 @@ function addTaskCancelButtonEvent(event, modal) {
     modal.close();
   }
 }
+function addProjectSubmitEvent(event, modal) {
+  event.preventDefault();
+  const storageName = "myProject";
+  const name = document.getElementById("name");
+  myLocal().createStorage(storageName);
+  const myStorage = myLocal().getStorage(storageName);
+  const myProject = {
+    title: name.value,
+    data: name.value.replaceAll(" ", ""),
+  };
+  myStorage.push(myProject);
+  myLocal().setStorage(storageName, myStorage);
+  header();
+  main();
+  modal.close();
+}
 
 export {
   navbarClickEvent,
   perProjectClickEvent,
   addToDropdownEvent,
   addTaskFormClickEvent,
+  addProjectSubmitEvent,
 };
