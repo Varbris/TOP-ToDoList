@@ -22,31 +22,9 @@ function addProjectModal() {
 
 function editTaskModal(data) {
   const modal = document.createElement("dialog");
-  const testForm = new Form();
-  const myForm = testForm.myForm;
-  console.log(typeof data.date);
-  testForm.addInputField("text", "title", data.title);
-  testForm.addInputField("text", "description", data.description);
-  testForm.addInputField("date", "Due", data.date);
-  const projectOption = [
-    testForm.addDropdownOption("YourTodos", "Your ToDos", data.safeTo),
-    testForm.addDropdownOption("YourProject", "Your Project", data.safeTo),
-  ];
-  testForm.addDropDown("Add To: ", projectOption, "projectDropDown");
-
-  const priorityOption = [
-    testForm.addDropdownOption("Priority1", "Priority 1", data.priority),
-    testForm.addDropdownOption("Priority2", "Priority 2", data.priority),
-    testForm.addDropdownOption("Priority3", "Priority 3", data.priority),
-    testForm.addDropdownOption("Priority4", "Priority 4", data.priority),
-  ];
-  testForm.addDropDown("Priority: ", priorityOption, "priorityDropDown");
-
-  testForm.addButton("add-task", "addTask", "Add");
-  testForm.addButton("cancel-button", "cancelButton", "Cancel");
+  const myForm = createAddTaskForm(modal, data);
   modal.appendChild(myForm);
 
-  var dropDownClickNumber = 0;
   const selectProject = createCustomElement("select");
   const option = createCustomElement("option");
   selectProject.addAttribute("id", "sendToProject");
@@ -57,53 +35,17 @@ function editTaskModal(data) {
       option.addAttribute("value", element.data);
       option.addInner(element.title);
       selectProject.addChild(option.element);
+      console.log(selectProject.element);
     });
+
+    const target = Array.from(myForm.querySelectorAll(".form-row")).find(
+      function (item) {
+        return item.querySelector("#projectDropDown");
+      }
+    );
+
+    myForm.insertBefore(selectProject.element, target.nextSibling);
   }
-  myForm.addEventListener("click", function (event) {
-    if (
-      event.target.id === "projectDropDown" &&
-      event.target.value === "YourProject" &&
-      dropDownClickNumber < 1
-    ) {
-      if (myProjectData == null) {
-        option.addInner("You dont have a project");
-        selectProject.addChild(option.element);
-        selectProject.element.disabled = true;
-      } else {
-        myProjectData.forEach((element) => {
-          option.addAttribute("value", element.data);
-          option.addInner(element.title);
-          selectProject.addChild(option.element);
-        });
-      }
-
-      testForm.insertInputAfter(event.target, selectProject.element);
-      dropDownClickNumber = 1;
-    } else if (
-      event.target.id === "projectDropDown" &&
-      event.target.value === "YourTodos"
-    ) {
-      const toProject = document.getElementById("sendToProject");
-      dropDownClickNumber = 0;
-      if (toProject !== null) {
-        toProject.remove();
-      }
-    }
-  });
-
-  myForm.addEventListener("click", function (event) {
-    if (event.target.id === "addTask") {
-      event.preventDefault();
-
-      updateArticle(window.location.pathname);
-      modal.close();
-    }
-
-    if (event.target.id === "cancelButton") {
-      event.preventDefault();
-      modal.close();
-    }
-  });
 
   return modal;
 }
