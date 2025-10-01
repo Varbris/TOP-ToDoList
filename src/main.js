@@ -102,8 +102,8 @@ function generateYourTodos(data, currentPath, container) {
             data[i].id === Number(event.target.dataset.id)
           ) {
             data.splice(i, 1);
-            myLocal().setStorage(currentPath, data);
-            generateYourTodos(data, currentPath, container);
+            myLocal().setStorage(currentPath.replaceAll(" ", ""), data);
+            generateYourTodos(data, currentPath.replaceAll(" ", ""), container);
           } else if (
             element === "Edit" &&
             data[i].id === Number(event.target.dataset.id)

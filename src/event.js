@@ -71,7 +71,6 @@ function addTaskFormClickEvent(event, modal) {
 }
 function editTaskButtonEvent(event, modal) {
   event.preventDefault();
-  console.log(event.target.id);
   taskFormcancelButtonEvent(event, modal);
 }
 function addTaskButtonEvent(event, modal) {

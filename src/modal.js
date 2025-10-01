@@ -50,7 +50,6 @@ function editTaskModal(data) {
         return item.querySelector("#projectDropDown");
       }
     );
-
     target.insertBefore(
       createSendToProjectDropDown(),
       target.querySelector("#projectDropDown").nextSibling
