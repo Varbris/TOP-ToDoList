@@ -67,11 +67,12 @@ function addToDropdownEvent(event, testForm) {
 
 function addTaskFormClickEvent(event, modal) {
   addTaskButtonEvent(event, modal);
-  addTaskCancelButtonEvent(event, modal);
+  taskFormcancelButtonEvent(event, modal);
 }
 function editTaskButtonEvent(event, modal) {
-  console.log(event.target);
   event.preventDefault();
+  console.log(event.target.id);
+  taskFormcancelButtonEvent(event, modal);
 }
 function addTaskButtonEvent(event, modal) {
   if (event.target.id === "addTask") {
@@ -116,7 +117,7 @@ function addTaskButtonEvent(event, modal) {
     modal.close();
   }
 }
-function addTaskCancelButtonEvent(event, modal) {
+function taskFormcancelButtonEvent(event, modal) {
   if (event.target.id === "cancelButton") {
     event.preventDefault();
     modal.close();

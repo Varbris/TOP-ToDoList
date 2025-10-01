@@ -38,7 +38,7 @@ function editTaskModal(data) {
   const modal = document.createElement("dialog");
   const myForm = createAddTaskForm(modal, data);
 
-  myForm.addEventListener("submit", function (event) {
+  myForm.addEventListener("click", function (event) {
     editTaskButtonEvent(event, modal);
   });
   modal.appendChild(myForm);
