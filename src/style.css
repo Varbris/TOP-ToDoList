@@ -284,3 +284,7 @@ dialog form .form-row {
 dialog form .form-row > * {
   min-width: 0;
 }
+
+#sendToProject {
+  grid-column: 2/2;
+}

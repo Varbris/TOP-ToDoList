@@ -50,7 +50,11 @@ function editTaskModal(data) {
         return item.querySelector("#projectDropDown");
       }
     );
-    myForm.insertBefore(createSendToProjectDropDown(), target.nextSibling);
+
+    target.insertBefore(
+      createSendToProjectDropDown(),
+      target.querySelector("#projectDropDown").nextSibling
+    );
   }
 
   return modal;

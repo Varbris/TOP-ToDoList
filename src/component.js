@@ -126,6 +126,7 @@ function createSendToProjectDropDown() {
   const selectProject = createCustomElement("select");
   selectProject.addAttribute("id", "sendToProject");
   const myProjectData = myLocal().getStorage("myProject");
+  selectProject.addInner("");
 
   if (myProjectData == null) {
     const option = createCustomElement("option");
