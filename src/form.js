@@ -12,7 +12,6 @@ export default class Form {
   }
 
   insertInputAfter(referenceNode, newNode) {
-    console.log(referenceNode, referenceNode.parentNode, newNode);
     referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
   }
 

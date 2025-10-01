@@ -1,20 +1,18 @@
-import { addProjectModal, addTaskModal } from "./modal.js";
 import { updateArticle } from "./main.js";
 import { createSendToProjectDropDown } from "./component.js";
 import myLocal from "./myLocal.js";
 import { header } from "./header.js";
 import { main } from "./main.js";
-function navbarClickEvent(event) {
+function navbarClickEvent(event, modal) {
   const headerContainer = document.getElementById("header");
-  const myTaskModal = addTaskModal();
-  const myProjectModal = addProjectModal();
 
   if (event.target.id === "addTaskButton") {
     event.preventDefault();
+
     event.target.href = "/";
     window.history.pushState({}, "", event.target.href);
-    headerContainer.appendChild(myTaskModal);
-    myTaskModal.showModal();
+    headerContainer.appendChild(modal);
+    modal.showModal();
   }
 
   if (
@@ -26,8 +24,8 @@ function navbarClickEvent(event) {
   }
 
   if (event.target.id === "addProjectButton" || event.target.id === "addIcon") {
-    headerContainer.appendChild(myProjectModal);
-    myProjectModal.showModal();
+    headerContainer.appendChild(modal);
+    modal.showModal();
   }
 
   if (
@@ -82,7 +80,7 @@ function addTaskButtonEvent(event, modal) {
     let description = document.getElementById("description");
     let date = document.getElementById("Due");
     const priority = document.getElementById("priorityDropDown");
-
+    console.log("awerklawerokkoaerw ", sendToProject.value);
     if (date.value === null || date.value === "") {
       date = "No Date";
     } else {

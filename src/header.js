@@ -8,6 +8,7 @@ import {
   createYourTodos,
   yourProjectList,
 } from "./component.js";
+import { addProjectModal, addTaskModal } from "./modal.js";
 
 export function header() {
   const body = document.getElementById("body");
@@ -32,7 +33,20 @@ function createNavbar() {
   navbarList.appendChild(createYourTodos());
   navbarList.appendChild(createYourProject());
   navbarList.appendChild(yourProjectList());
-  navbarList.addEventListener("click", navbarClickEvent);
+  const myTaskModal = addTaskModal();
+  const myProjectModal = addProjectModal();
+  navbarList.addEventListener("click", function (event) {
+    if (event.target.id === "addTaskButton") {
+      navbarClickEvent(event, myTaskModal);
+    } else if (
+      event.target.id === "addProjectButton" ||
+      event.target.id === "addIcon"
+    ) {
+      navbarClickEvent(event, myProjectModal);
+    } else {
+      navbarClickEvent(event);
+    }
+  });
   navBar.appendChild(navbarList);
   return navBar;
 }
