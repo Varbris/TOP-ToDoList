@@ -109,7 +109,11 @@ function createAddTaskForm(modal, data = "") {
   testForm.addDropDown("Priority: ", priorityOption, "priorityDropDown");
 
   const taskButton = data === null || data === "" ? "Add" : "Edit";
-  testForm.addButton("add-task", "addTask", taskButton);
+  testForm.addButton(
+    taskButton.toLowerCase() + "-task",
+    taskButton.toLowerCase() + "Task",
+    taskButton
+  );
   testForm.addButton("cancel-button", "cancelButton", "Cancel");
 
   myForm.addEventListener("change", (event) => {

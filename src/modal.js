@@ -9,13 +9,16 @@ import {
   createAddTaskForm,
   createSendToProjectDropDown,
 } from "./component.js";
-import { addTaskFormClickEvent, addToDropdownEvent } from "./event.js";
+import {
+  addTaskFormClickEvent,
+  addToDropdownEvent,
+  editTaskButtonEvent,
+} from "./event.js";
 
 function addTaskModal() {
   const modal = document.createElement("dialog");
   modal.setAttribute("id", "addTaskModal");
   const myForm = createAddTaskForm(modal);
-
   myForm.addEventListener("click", function (event) {
     addTaskFormClickEvent(event, modal);
   });
@@ -34,6 +37,10 @@ function addProjectModal() {
 function editTaskModal(data) {
   const modal = document.createElement("dialog");
   const myForm = createAddTaskForm(modal, data);
+
+  myForm.addEventListener("submit", function (event) {
+    editTaskButtonEvent(event, modal);
+  });
   modal.appendChild(myForm);
 
   //target if data exists, dropdown immediately show up

@@ -69,7 +69,10 @@ function addTaskFormClickEvent(event, modal) {
   addTaskButtonEvent(event, modal);
   addTaskCancelButtonEvent(event, modal);
 }
-
+function editTaskButtonEvent(event, modal) {
+  console.log(event.target);
+  event.preventDefault();
+}
 function addTaskButtonEvent(event, modal) {
   if (event.target.id === "addTask") {
     event.preventDefault();
@@ -109,7 +112,6 @@ function addTaskButtonEvent(event, modal) {
       myLocal().setStorage(addToProject.value, myStorage);
     }
 
-    let test = document.getElementById("article");
     updateArticle(window.location.pathname);
     modal.close();
   }
@@ -143,4 +145,5 @@ export {
   addToDropdownEvent,
   addTaskFormClickEvent,
   addProjectSubmitEvent,
+  editTaskButtonEvent,
 };
