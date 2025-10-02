@@ -27,7 +27,6 @@ export default class Form {
     inputField.setAttribute("name", title);
     if (data !== null) {
       if (Array.isArray(data) && type === "date") {
-        console.log();
         inputField.setAttribute(
           "value",
           format(new Date(data[0], data[1] - 1, data[2]), "y-MM-dd")

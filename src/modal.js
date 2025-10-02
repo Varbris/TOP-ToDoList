@@ -44,17 +44,6 @@ function editTaskModal(data) {
   modal.appendChild(myForm);
 
   //target if data exists, dropdown immediately show up
-  if ("projectName" in data) {
-    const target = Array.from(myForm.querySelectorAll(".form-row")).find(
-      function (item) {
-        return item.querySelector("#projectDropDown");
-      }
-    );
-    target.insertBefore(
-      createSendToProjectDropDown(),
-      target.querySelector("#projectDropDown").nextSibling
-    );
-  }
 
   return modal;
 }

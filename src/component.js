@@ -107,6 +107,12 @@ function createAddTaskForm(modal, data = "") {
     testForm.addDropdownOption("Priority4", "Priority 4", data.priority),
   ];
   testForm.addDropDown("Priority: ", priorityOption, "priorityDropDown");
+  if (data !== null || data !== "") {
+    testForm.insertInputAfter(
+      myForm.querySelector("#projectDropDown"),
+      createSendToProjectDropDown(data.projectName)
+    );
+  }
 
   const taskButton = data === null || data === "" ? "Add" : "Edit";
   testForm.addButton(
@@ -122,7 +128,7 @@ function createAddTaskForm(modal, data = "") {
   return myForm;
 }
 
-function createSendToProjectDropDown() {
+function createSendToProjectDropDown(data = null) {
   const selectProject = createCustomElement("select");
   selectProject.addAttribute("id", "sendToProject");
   const myProjectData = myLocal().getStorage("myProject");
@@ -136,6 +142,9 @@ function createSendToProjectDropDown() {
   } else {
     myProjectData.forEach((element) => {
       const option = createCustomElement("option");
+      if (data !== null && data === element.data) {
+        option.addAttribute("selected", "selected");
+      }
       option.addAttribute("value", element.data);
       option.addInner(element.title);
       selectProject.addChild(option.element);
