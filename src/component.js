@@ -87,13 +87,14 @@ function yourProjectList() {
 //navbar component end//
 
 //modal component start//
-function createAddTaskForm(modal, data = "") {
+function createAddTaskForm(data = "") {
   const testForm = new Form();
   const myForm = testForm.myForm;
 
   testForm.addInputField("text", "title", data.title);
   testForm.addInputField("text", "description", data.description);
   testForm.addInputField("date", "Due", data.date);
+
   const projectOption = [
     testForm.addDropdownOption("YourTodos", "Your ToDos", data.safeTo),
     testForm.addDropdownOption("YourProject", "Your Project", data.safeTo),
@@ -107,8 +108,9 @@ function createAddTaskForm(modal, data = "") {
     testForm.addDropdownOption("Priority4", "Priority 4", data.priority),
   ];
   testForm.addDropDown("Priority: ", priorityOption, "priorityDropDown");
-  if (data !== null || data !== "") {
-    testForm.addInputField("hidden", "", data.id);
+  console.log(typeof data);
+  if (data !== null && data !== "") {
+    testForm.addInputField("hidden", "hiddenId", data.id);
     testForm.insertInputAfter(
       myForm.querySelector("#projectDropDown"),
       createSendToProjectDropDown(data.projectName)
