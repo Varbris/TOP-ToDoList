@@ -8,7 +8,6 @@ function navbarClickEvent(event, modal) {
 
   if (event.target.id === "addTaskButton") {
     event.preventDefault();
-
     event.target.href = "/";
     window.history.pushState({}, "", event.target.href);
     headerContainer.appendChild(modal);
@@ -67,20 +66,20 @@ function addTaskFormClickEvent(event, modal) {
   addTaskButtonEvent(event, modal);
   taskFormcancelButtonEvent(event, modal);
 }
-function editTaskButtonEvent(event, modal) {
-  event.preventDefault();
+function editTaskFormClickEvent(event, modal) {
+  editProjectButtonEvent(event);
   taskFormcancelButtonEvent(event, modal);
 }
 function addTaskButtonEvent(event, modal) {
+  event.preventDefault();
   if (event.target.id === "addTask") {
-    event.preventDefault();
     const addToProject = document.getElementById("projectDropDown");
     const sendToProject = document.getElementById("sendToProject");
     let title = document.getElementById("title");
     let description = document.getElementById("description");
     let date = document.getElementById("Due");
     const priority = document.getElementById("priorityDropDown");
-    console.log("awerklawerokkoaerw ", sendToProject.value);
+
     if (date.value === null || date.value === "") {
       date = "No Date";
     } else {
@@ -137,11 +136,34 @@ function addProjectSubmitEvent(event, modal) {
   modal.close();
 }
 
+function editProjectButtonEvent(event) {
+  if (event.target.id === "editTask") {
+    event.preventDefault();
+    const projectDropDown = document.getElementById("projectDropDown");
+    const sendToProject = document.getElementById("sendToProject");
+    let title = document.getElementById("title");
+    let description = document.getElementById("description");
+    let date = document.getElementById("Due");
+    const priority = document.getElementById("priorityDropDown");
+    const id = document.getElementById("hiddenId");
+
+    console.log(
+      projectDropDown.value,
+      sendToProject.value,
+      title.value,
+      description.value,
+      date.value,
+      priority.value,
+      id.value
+    );
+  }
+}
+
 export {
   navbarClickEvent,
   perProjectClickEvent,
   addToDropdownEvent,
   addTaskFormClickEvent,
   addProjectSubmitEvent,
-  editTaskButtonEvent,
+  editTaskFormClickEvent,
 };
