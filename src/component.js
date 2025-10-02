@@ -108,6 +108,7 @@ function createAddTaskForm(modal, data = "") {
   ];
   testForm.addDropDown("Priority: ", priorityOption, "priorityDropDown");
   if (data !== null || data !== "") {
+    testForm.addInputField("hidden", "", data.id);
     testForm.insertInputAfter(
       myForm.querySelector("#projectDropDown"),
       createSendToProjectDropDown(data.projectName)
