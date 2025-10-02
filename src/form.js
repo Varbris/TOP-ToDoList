@@ -18,13 +18,16 @@ export default class Form {
   addInputField(type, title, data = null) {
     const div = document.createElement("div");
     div.classList.add("form-row");
-    const label = document.createElement("label");
-    label.setAttribute("for", title);
-    label.innerText = title;
     const inputField = document.createElement("input");
     inputField.setAttribute("type", type);
-    inputField.setAttribute("id", title);
-    inputField.setAttribute("name", title);
+    if (title !== "hidden" && type !== "hidden") {
+      const label = document.createElement("label");
+      label.setAttribute("for", title);
+      label.innerText = title;
+      inputField.setAttribute("id", title);
+      inputField.setAttribute("name", title);
+      div.append(label);
+    }
     if (data !== null) {
       if (Array.isArray(data) && type === "date") {
         inputField.setAttribute(
@@ -35,7 +38,6 @@ export default class Form {
         inputField.setAttribute("value", data);
       }
     }
-    div.append(label);
     div.append(inputField);
 
     this.form.append(div);
