@@ -1,6 +1,7 @@
 import {
   createAnchor,
   createButton,
+  createCard,
   createCustomElement,
   createNavLi,
 } from "./create";
@@ -14,6 +15,7 @@ import {
   perProjectClickEvent,
 } from "./event.js";
 import Form from "./form.js";
+const { format } = require("date-fns");
 
 //navbar component start///
 function createNavbarBrand() {
@@ -108,9 +110,9 @@ function createAddTaskForm(data = "") {
     testForm.addDropdownOption("Priority4", "Priority 4", data.priority),
   ];
   testForm.addDropDown("Priority: ", priorityOption, "priorityDropDown");
+  testForm.addInputField("hidden", "hiddenId", data.id);
   console.log(typeof data);
   if (data !== null && data !== "" && data.safeTo !== "YourTodos") {
-    testForm.addInputField("hidden", "hiddenId", data.id);
     testForm.insertInputAfter(
       myForm.querySelector("#projectDropDown"),
       createSendToProjectDropDown(data.projectName)
@@ -167,6 +169,45 @@ function createAddProjectForm(modal) {
   return getForm;
 }
 
+function createTodoCard(data, currentPath) {
+  let date =
+    data.date === "No Date"
+      ? data.date
+      : format(
+          new Date(data.date[0], data.date[1] - 1, data.date[2]),
+          "y-MMM-d"
+        );
+  const pDate = createCustomElement("p");
+  pDate.addInner(date);
+  const card = createCard(data.title, data.description);
+  const href = createCustomElement("a");
+  const div1 = createCustomElement("div");
+  const controlDiv = createCustomElement("div");
+  controlDiv.addAttribute("class", "card-control");
+  const controlBtn = ["Delete", "Edit"];
+  controlBtn.forEach((element) => {
+    const btn = createCustomElement("button");
+    btn.addAttribute("id", element + "TodosBtn");
+    btn.addInner(element);
+    btn.addAttribute("data-id");
+    btn.addAttribute("data-id", data.id);
+    controlDiv.addChild(btn.element);
+  });
+
+  div1.addAttribute("class", "priority-box");
+  div1.addInner((document.createElement("p").innerText = data.priority));
+  const p = document.createElement("p");
+  p.innerText = currentPath;
+  div1.addChild(p);
+  href.addAttribute("href", "https://google.com");
+  href.addInner(data.priority);
+  card.appendBody(pDate.element);
+  card.appendBody(div1.element);
+  card.addToCard(controlDiv.element);
+
+  return card.card;
+}
+
 export {
   createNavbarBrand,
   createAddTaskButton,
@@ -176,4 +217,5 @@ export {
   createAddTaskForm,
   createSendToProjectDropDown,
   createAddProjectForm,
+  createTodoCard,
 };

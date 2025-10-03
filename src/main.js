@@ -1,13 +1,11 @@
+import { createTodoCard } from "./component";
+import { createCustomElement, createAnchor, createNavLi } from "./create";
 import {
-  createCard,
-  createCustomElement,
-  createAnchor,
-  createNavLi,
-} from "./create";
-import { editTaskModal } from "./modal";
+  editTaskFormClickEvent,
+  toDoControlButtonEvent,
+  toDoEditButtonEvent,
+} from "./event";
 import myLocal from "./myLocal";
-
-const { format } = require("date-fns");
 
 function main() {
   const body = document.getElementById("body");
@@ -72,63 +70,13 @@ function updateArticle(currentPath) {
 function generateYourTodos(data, currentPath, container) {
   container.innerText = "";
   if (data === null) {
-    container.innerText = "You Dont have Any Data !, just add some task dude";
+    const p = document.createElement("p");
+    p.innerText = "You Dont have Any Data !, just add some task dude";
+    container.appendChild(p);
   } else {
-    for (let i = 0; i < data.length; i++) {
-      let date =
-        data[i].date === "No Date"
-          ? data[i].date
-          : format(
-              new Date(data[i].date[0], data[i].date[1] - 1, data[i].date[2]),
-              "y-MMM-d"
-            );
-      const pDate = createCustomElement("p");
-      pDate.addInner(date);
-      const card = createCard(data[i].title, data[i].description);
-      const href = createCustomElement("a");
-      const div1 = createCustomElement("div");
-      const controlDiv = createCustomElement("div");
-      controlDiv.addAttribute("class", "card-control");
-      const controlBtn = ["Delete", "Edit"];
-      controlBtn.forEach((element) => {
-        const btn = createCustomElement("button");
-        btn.addAttribute("id", element + "TodosBtn");
-        btn.addInner(element);
-        btn.addAttribute("data-id");
-        btn.addAttribute("data-id", data[i].id);
-        btn.addEvent("click", function (event) {
-          if (
-            element === "Delete" &&
-            data[i].id === Number(event.target.dataset.id)
-          ) {
-            data.splice(i, 1);
-            myLocal().setStorage(currentPath.replaceAll(" ", ""), data);
-            generateYourTodos(data, currentPath.replaceAll(" ", ""), container);
-          } else if (
-            element === "Edit" &&
-            data[i].id === Number(event.target.dataset.id)
-          ) {
-            const modal = editTaskModal(data[i]);
-            container.appendChild(modal);
-            modal.showModal();
-          }
-        });
-        controlDiv.addChild(btn.element);
-      });
-
-      div1.addAttribute("class", "priority-box");
-      div1.addInner((document.createElement("p").innerText = data[i].priority));
-      const p = document.createElement("p");
-      p.innerText = currentPath;
-      div1.addChild(p);
-      href.addAttribute("href", "https://google.com");
-      href.addInner(data[i].priority);
-      card.appendBody(pDate.element);
-      card.appendBody(div1.element);
-      card.addToCard(controlDiv.element);
-
-      container.appendChild(card.card);
-    }
+    data.forEach(function (element) {
+      container.appendChild(createTodoCard(element, currentPath));
+    });
   }
 }
 
