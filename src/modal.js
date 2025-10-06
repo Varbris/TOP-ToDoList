@@ -35,7 +35,7 @@ function editTaskModal(data) {
   const myForm = createAddTaskForm(data);
 
   myForm.addEventListener("click", function (event) {
-    editTaskFormClickEvent(event, modal);
+    editTaskFormClickEvent(event, modal, data);
   });
   modal.appendChild(myForm);
 

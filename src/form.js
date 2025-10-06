@@ -27,6 +27,8 @@ export default class Form {
       inputField.setAttribute("id", title);
       inputField.setAttribute("name", title);
       div.append(label);
+    } else {
+      inputField.setAttribute("id", title);
     }
     if (data !== null) {
       if (Array.isArray(data) && type === "date") {

@@ -75,7 +75,14 @@ function generateYourTodos(data, currentPath, container) {
     container.appendChild(p);
   } else {
     data.forEach(function (element) {
-      container.appendChild(createTodoCard(element, currentPath));
+      const myTodosCard = createTodoCard(element, currentPath);
+      myTodosCard
+        .querySelector(".card-control")
+        .addEventListener("click", function (event) {
+          toDoControlButtonEvent(event, element, currentPath);
+          updateArticle(currentPath);
+        });
+      container.appendChild(myTodosCard);
     });
   }
 }

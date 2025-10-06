@@ -3,6 +3,7 @@ import { createSendToProjectDropDown } from "./component.js";
 import myLocal from "./myLocal.js";
 import { header } from "./header.js";
 import { main } from "./main.js";
+import { editTaskModal } from "./modal.js";
 function navbarClickEvent(event, modal) {
   const headerContainer = document.getElementById("header");
 
@@ -66,13 +67,13 @@ function addTaskFormClickEvent(event, modal) {
   addTaskButtonEvent(event, modal);
   taskFormcancelButtonEvent(event, modal);
 }
-function editTaskFormClickEvent(event, modal) {
-  editProjectButtonEvent(event);
+function editTaskFormClickEvent(event, modal, data) {
+  editTaskButtonEvent(event, data);
   taskFormcancelButtonEvent(event, modal);
 }
 function addTaskButtonEvent(event, modal) {
-  event.preventDefault();
   if (event.target.id === "addTask") {
+    event.preventDefault();
     const addToProject = document.getElementById("projectDropDown");
     const sendToProject = document.getElementById("sendToProject");
     let title = document.getElementById("title");
@@ -136,9 +137,10 @@ function addProjectSubmitEvent(event, modal) {
   modal.close();
 }
 
-function editProjectButtonEvent(event) {
+function editTaskButtonEvent(event, data) {
   if (event.target.id === "editTask") {
     event.preventDefault();
+    const previousData = data;
     const projectDropDown = document.getElementById("projectDropDown");
     const sendToProject = document.getElementById("sendToProject");
     let title = document.getElementById("title");
@@ -147,15 +149,89 @@ function editProjectButtonEvent(event) {
     const priority = document.getElementById("priorityDropDown");
     const id = document.getElementById("hiddenId");
 
-    console.log(
-      projectDropDown.value,
-      sendToProject.value,
-      title.value,
-      description.value,
-      date.value,
-      priority.value,
-      id.value
-    );
+    const updatedData = {
+      id: parseInt(id.value),
+      title: title.value,
+      description: description.value,
+      date:
+        date.value === null || date.value === ""
+          ? "No Date"
+          : date.value.split("-").map(function (item) {
+              return parseInt(item);
+            }),
+      safeTo: projectDropDown.value,
+      priority: priority.value,
+    };
+    if (sendToProject !== null) {
+      myLocal().createStorage(sendToProject.value);
+      let myProject;
+      console.log(sendToProject.value, previousData.projectName);
+      if (sendToProject.value === previousData.projectName) {
+        console.log("awikwok");
+        myProject = myLocal().getStorage(sendToProject.value);
+      } else {
+        myProject = myLocal().getStorage(previousData.projectName);
+      }
+      console.log("aaaaaaaaa: ", myProject);
+      updatedData.projectName = sendToProject.value;
+      const result = myProject.map((element, index) => {
+        if (element.id === parseInt(id.value)) {
+          element = updatedData;
+          return element;
+        } else {
+          return element;
+        }
+      });
+      console.log(result);
+      // myProject.push(result);
+      // myLocal().setStorage(sendToProject.value, result);
+    } else {
+      // myLocal().createStorage(projectDropDown.value);
+      // const myStorage = myLocal().getStorage(projectDropDown.value);
+      // myStorage.forEach((element, index) => {
+      //   if (element.id === parseInt(id.value)) {
+      //     element = updatedData;
+      //     return element;
+      //   } else {
+      //     return element;
+      //   }
+      // });
+      // myStorage.push(updatedData);
+      // myLocal().setStorage(addToProject.value, myStorage);
+    }
+
+    updateArticle(window.location.pathname);
+  }
+}
+
+function toDoControlButtonEvent(event, data, currentPath, container) {
+  toDoDeleteButtonEvent(event, data, currentPath);
+  toDoEditButtonEvent(event, data, container);
+}
+
+function toDoDeleteButtonEvent(event, data, currentPath) {
+  if (event.target.id === "DeleteTodosBtn") {
+    currentPath = currentPath.replaceAll(" ", "");
+    const getData = myLocal().getStorage(currentPath);
+    getData.forEach(function (element, index) {
+      if (element.id === data.id) {
+        getData.splice(index, 1);
+        myLocal().setStorage(currentPath, getData);
+      }
+    });
+  }
+  // myLocal().setStorage(currentPath.replaceAll(" ", ""), data);
+}
+
+function toDoEditButtonEvent(event, data, container) {
+  if (event.target.id === "EditTodosBtn") {
+    data.forEach(function (element) {
+      if (element.id === Number(event.target.dataset.id)) {
+        const modal = editTaskModal(element);
+        container.appendChild(modal);
+        modal.showModal();
+      }
+    });
   }
 }
 
@@ -166,4 +242,5 @@ export {
   addTaskFormClickEvent,
   addProjectSubmitEvent,
   editTaskFormClickEvent,
+  toDoControlButtonEvent,
 };
