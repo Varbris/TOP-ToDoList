@@ -34,6 +34,7 @@ function updateArticle(currentPath) {
   let data;
   if (currentPath.includes("myProject")) {
     currentPath = currentPath.replace("myProject/", "");
+    currentPath = currentPath.replace(" ", "");
     data = myLocal().getStorage(currentPath);
   } else {
     data = myLocal().getStorage(currentPath);

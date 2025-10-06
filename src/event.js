@@ -162,18 +162,16 @@ function editTaskButtonEvent(event, data) {
       safeTo: projectDropDown.value,
       priority: priority.value,
     };
-    if (sendToProject !== null) {
-      myLocal().createStorage(sendToProject.value);
-      let myProject;
-      console.log(sendToProject.value, previousData.projectName);
-      if (sendToProject.value === previousData.projectName) {
-        myProject = myLocal().getStorage(sendToProject.value);
-      } else {
-        myProject = myLocal().getStorage(previousData.projectName);
-      }
 
+    console.log(sendToProject.value, previousData.projectName, id.value);
+    if (
+      sendToProject !== null &&
+      sendToProject.value === previousData.projectName
+    ) {
+      myLocal().createStorage(sendToProject.value);
       updatedData.projectName = sendToProject.value;
-      myProject = myProject.map((element) => {
+      let myProject = myLocal().getStorage(sendToProject.value);
+      myProject = myProject.map(function (element) {
         if (element.id === parseInt(id.value)) {
           element = updatedData;
           return element;
@@ -181,20 +179,16 @@ function editTaskButtonEvent(event, data) {
           return element;
         }
       });
+      console.log(myProject);
+    } else if (
+      sendToProject !== null &&
+      sendToProject.value !== previousData.projectName
+    ) {
+      let myProject = myLocal().getStorage(sendToProject.value);
+      updatedData.projectName = sendToProject.value;
+      deleteDataFunction(previousData, previousData.projectName);
+      myProject.push(updatedData);
       myLocal().setStorage(sendToProject.value, myProject);
-    } else {
-      // myLocal().createStorage(projectDropDown.value);
-      // const myStorage = myLocal().getStorage(projectDropDown.value);
-      // myStorage.forEach((element, index) => {
-      //   if (element.id === parseInt(id.value)) {
-      //     element = updatedData;
-      //     return element;
-      //   } else {
-      //     return element;
-      //   }
-      // });
-      // myStorage.push(updatedData);
-      // myLocal().setStorage(addToProject.value, myStorage);
     }
 
     updateArticle(window.location.pathname);
@@ -208,16 +202,19 @@ function toDoControlButtonEvent(event, data, currentPath, container) {
 
 function toDoDeleteButtonEvent(event, data, currentPath) {
   if (event.target.id === "DeleteTodosBtn") {
-    currentPath = currentPath.replaceAll(" ", "");
-    const getData = myLocal().getStorage(currentPath);
-    getData.forEach(function (element, index) {
-      if (element.id === data.id) {
-        getData.splice(index, 1);
-        myLocal().setStorage(currentPath, getData);
-        updateArticle(currentPath);
-      }
-    });
+    deleteDataFunction(data, currentPath);
   }
+}
+
+function deleteDataFunction(data, currentPath) {
+  const getData = myLocal().getStorage(currentPath);
+  getData.forEach(function (element, index) {
+    if (element.id === data.id) {
+      getData.splice(index, 1);
+      myLocal().setStorage(currentPath, getData);
+      updateArticle(currentPath);
+    }
+  });
 }
 
 function toDoEditButtonEvent(event, data, container) {
