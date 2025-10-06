@@ -79,8 +79,7 @@ function generateYourTodos(data, currentPath, container) {
       myTodosCard
         .querySelector(".card-control")
         .addEventListener("click", function (event) {
-          toDoControlButtonEvent(event, element, currentPath);
-          updateArticle(currentPath);
+          toDoControlButtonEvent(event, element, currentPath, container);
         });
       container.appendChild(myTodosCard);
     });

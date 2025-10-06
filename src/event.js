@@ -167,14 +167,13 @@ function editTaskButtonEvent(event, data) {
       let myProject;
       console.log(sendToProject.value, previousData.projectName);
       if (sendToProject.value === previousData.projectName) {
-        console.log("awikwok");
         myProject = myLocal().getStorage(sendToProject.value);
       } else {
         myProject = myLocal().getStorage(previousData.projectName);
       }
-      console.log("aaaaaaaaa: ", myProject);
+
       updatedData.projectName = sendToProject.value;
-      const result = myProject.map((element, index) => {
+      myProject = myProject.map((element) => {
         if (element.id === parseInt(id.value)) {
           element = updatedData;
           return element;
@@ -182,9 +181,7 @@ function editTaskButtonEvent(event, data) {
           return element;
         }
       });
-      console.log(result);
-      // myProject.push(result);
-      // myLocal().setStorage(sendToProject.value, result);
+      myLocal().setStorage(sendToProject.value, myProject);
     } else {
       // myLocal().createStorage(projectDropDown.value);
       // const myStorage = myLocal().getStorage(projectDropDown.value);
@@ -217,21 +214,17 @@ function toDoDeleteButtonEvent(event, data, currentPath) {
       if (element.id === data.id) {
         getData.splice(index, 1);
         myLocal().setStorage(currentPath, getData);
+        updateArticle(currentPath);
       }
     });
   }
-  // myLocal().setStorage(currentPath.replaceAll(" ", ""), data);
 }
 
 function toDoEditButtonEvent(event, data, container) {
   if (event.target.id === "EditTodosBtn") {
-    data.forEach(function (element) {
-      if (element.id === Number(event.target.dataset.id)) {
-        const modal = editTaskModal(element);
-        container.appendChild(modal);
-        modal.showModal();
-      }
-    });
+    const modal = editTaskModal(data);
+    container.appendChild(modal);
+    modal.showModal();
   }
 }
 

@@ -111,7 +111,7 @@ function createAddTaskForm(data = "") {
   ];
   testForm.addDropDown("Priority: ", priorityOption, "priorityDropDown");
   testForm.addInputField("hidden", "hiddenId", data.id);
-  console.log(typeof data);
+
   if (data !== null && data !== "" && data.safeTo !== "YourTodos") {
     testForm.insertInputAfter(
       myForm.querySelector("#projectDropDown"),
