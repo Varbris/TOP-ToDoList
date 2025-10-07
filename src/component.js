@@ -150,6 +150,8 @@ function createSendToProjectDropDown(data = null) {
       if (data !== null && data === element.data) {
         option.addAttribute("selected", "selected");
       }
+      //! eroooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooor
+
       option.addAttribute("value", element.data);
       option.addInner(element.title);
       selectProject.addChild(option.element);

@@ -179,7 +179,7 @@ function editTaskButtonEvent(event, data) {
           return element;
         }
       });
-      console.log(myProject);
+      console.log("gak masuk bang , kenapa yaaa");
     } else if (
       sendToProject !== null &&
       sendToProject.value !== previousData.projectName
@@ -189,6 +189,7 @@ function editTaskButtonEvent(event, data) {
       deleteDataFunction(previousData, previousData.projectName);
       myProject.push(updatedData);
       myLocal().setStorage(sendToProject.value, myProject);
+      console.log("awikwok");
     }
 
     updateArticle(window.location.pathname);

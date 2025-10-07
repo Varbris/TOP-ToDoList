@@ -70,6 +70,7 @@ function updateArticle(currentPath) {
 
 function generateYourTodos(data, currentPath, container) {
   container.innerText = "";
+  console.log(currentPath);
   if (data === null) {
     const p = document.createElement("p");
     p.innerText = "You Dont have Any Data !, just add some task dude";
@@ -113,7 +114,7 @@ function generateEachProject(currentPath, data) {
   }
   myProjectList.forEach(function (element) {
     if (currentPath === "myProject" || element.data === currentPath) {
-      generateYourTodos(data, element.title, article);
+      generateYourTodos(data, currentPath, article);
     } else {
       return 0;
     }

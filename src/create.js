@@ -13,10 +13,21 @@ function createCustomElement(tagName) {
     element.setAttribute(attributeName, attributeValue);
   };
 
+  const deleteAttribute = function (attributeName) {
+    element.removeAttribute(attributeName);
+  };
+
   const addEvent = function (eventName, whatTodo) {
     element.addEventListener(eventName, whatTodo);
   };
-  return { element, addAttribute, addInner, addChild, addEvent };
+  return {
+    element,
+    addAttribute,
+    addInner,
+    addChild,
+    addEvent,
+    deleteAttribute,
+  };
 }
 
 function createNavLi(navLinkClass, navLinkHtml = null, navLinkInner = null) {
