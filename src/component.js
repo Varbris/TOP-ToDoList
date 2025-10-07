@@ -147,14 +147,14 @@ function createSendToProjectDropDown(data = null) {
   } else {
     myProjectData.forEach((element) => {
       const option = createCustomElement("option");
-      if (data !== null && data === element.data) {
-        option.addAttribute("selected", "selected");
-      }
-      //! eroooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooor
 
       option.addAttribute("value", element.data);
       option.addInner(element.title);
       selectProject.addChild(option.element);
+      const selector = selectProject.element;
+      if (data !== null && data === element.data) {
+        selector.value = data;
+      }
     });
   }
   return selectProject.element;
