@@ -54,12 +54,10 @@ function addToDropdownEvent(event, testForm) {
     testForm.insertInputAfter(event.target, selectProject);
   } else if (
     event.target.id === "projectDropDown" &&
-    event.target.value === "YourTodos"
+    event.target.value === "YourTodos" &&
+    event.target.parentNode.querySelector("#sendToProject") !== null
   ) {
-    const toProject = document.getElementById("sendToProject");
-    if (toProject !== null) {
-      toProject.remove();
-    }
+    event.target.parentNode.querySelector("#sendToProject").remove();
   }
 }
 
@@ -163,36 +161,7 @@ function editTaskButtonEvent(event, data) {
       priority: priority.value,
     };
 
-    console.log(sendToProject.value, previousData.projectName, id.value);
-    if (
-      sendToProject !== null &&
-      sendToProject.value === previousData.projectName
-    ) {
-      myLocal().createStorage(sendToProject.value);
-      updatedData.projectName = sendToProject.value;
-      let myProject = myLocal().getStorage(sendToProject.value);
-      myProject = myProject.map(function (element) {
-        if (element.id === parseInt(id.value)) {
-          element = updatedData;
-          return element;
-        } else {
-          return element;
-        }
-      });
-      console.log("gak masuk bang , kenapa yaaa");
-    } else if (
-      sendToProject !== null &&
-      sendToProject.value !== previousData.projectName
-    ) {
-      let myProject = myLocal().getStorage(sendToProject.value);
-      updatedData.projectName = sendToProject.value;
-      deleteDataFunction(previousData, previousData.projectName);
-      myProject.push(updatedData);
-      myLocal().setStorage(sendToProject.value, myProject);
-      console.log("awikwok");
-    }
-
-    updateArticle(window.location.pathname);
+    console.log(projectDropDown.value, sendToProject.value, title.value);
   }
 }
 
