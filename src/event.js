@@ -4,6 +4,7 @@ import myLocal from "./myLocal.js";
 import { header } from "./header.js";
 import { main } from "./main.js";
 import { editTaskModal } from "./modal.js";
+import { deleteData, editSendToEqual, editSendToNotEqual } from "./model.js";
 function navbarClickEvent(event, modal) {
   const headerContainer = document.getElementById("header");
 
@@ -162,34 +163,17 @@ function editTaskButtonEvent(event, data, modal) {
       priority: priority.value,
     };
     //!---------- still neeed to fix
-    // ! dont forget when the dropdown your project clicked again, it will generate the drop down twice, maybe more
     console.log(projectDropDown.value, sendToProject.value, title.value);
     if (
       sendToProject !== null &&
       sendToProject.value === previousData.projectName
     ) {
-      myLocal().createStorage(sendToProject.value);
-      updatedData.projectName = sendToProject.value;
-      let myProject = myLocal().getStorage(sendToProject.value);
-      myProject = myProject.map(function (element) {
-        if (element.id === parseInt(id.value)) {
-          element = updatedData;
-          return element;
-        } else {
-          return element;
-        }
-      });
-      console.log("gak masuk bang , kenapa yaaa");
+      editSendToEqual(sendToProject.value, updatedData, id.value);
     } else if (
       sendToProject !== null &&
       sendToProject.value !== previousData.projectName
     ) {
-      let myProject = myLocal().getStorage(sendToProject.value);
-      updatedData.projectName = sendToProject.value;
-      deleteDataFunction(previousData, previousData.projectName);
-      myProject.push(updatedData);
-      myLocal().setStorage(sendToProject.value, myProject);
-      console.log("awikwok");
+      editSendToNotEqual(sendToProject.value, previousData, updatedData);
     }
 
     updateArticle(window.location.pathname);
@@ -205,19 +189,8 @@ function toDoControlButtonEvent(event, data, currentPath, container) {
 
 function toDoDeleteButtonEvent(event, data, currentPath) {
   if (event.target.id === "DeleteTodosBtn") {
-    deleteDataFunction(data, currentPath);
+    deleteData(data, currentPath);
   }
-}
-
-function deleteDataFunction(data, currentPath) {
-  const getData = myLocal().getStorage(currentPath);
-  getData.forEach(function (element, index) {
-    if (element.id === data.id) {
-      getData.splice(index, 1);
-      myLocal().setStorage(currentPath, getData);
-      updateArticle(currentPath);
-    }
-  });
 }
 
 function toDoEditButtonEvent(event, data, container) {
