@@ -66,7 +66,7 @@ function addTaskFormClickEvent(event, modal) {
   taskFormcancelButtonEvent(event, modal);
 }
 function editTaskFormClickEvent(event, modal, data) {
-  editTaskButtonEvent(event, data);
+  editTaskButtonEvent(event, data, modal);
   taskFormcancelButtonEvent(event, modal);
 }
 function addTaskButtonEvent(event, modal) {
@@ -110,6 +110,7 @@ function addTaskButtonEvent(event, modal) {
 
     updateArticle(window.location.pathname);
     modal.close();
+    modal.remove();
   }
 }
 function taskFormcancelButtonEvent(event, modal) {
@@ -135,7 +136,7 @@ function addProjectSubmitEvent(event, modal) {
   modal.close();
 }
 
-function editTaskButtonEvent(event, data) {
+function editTaskButtonEvent(event, data, modal) {
   if (event.target.id === "editTask") {
     event.preventDefault();
     const previousData = data;
@@ -160,8 +161,40 @@ function editTaskButtonEvent(event, data) {
       safeTo: projectDropDown.value,
       priority: priority.value,
     };
-
+    //!---------- still neeed to fix
+    // ! dont forget when the dropdown your project clicked again, it will generate the drop down twice, maybe more
     console.log(projectDropDown.value, sendToProject.value, title.value);
+    if (
+      sendToProject !== null &&
+      sendToProject.value === previousData.projectName
+    ) {
+      myLocal().createStorage(sendToProject.value);
+      updatedData.projectName = sendToProject.value;
+      let myProject = myLocal().getStorage(sendToProject.value);
+      myProject = myProject.map(function (element) {
+        if (element.id === parseInt(id.value)) {
+          element = updatedData;
+          return element;
+        } else {
+          return element;
+        }
+      });
+      console.log("gak masuk bang , kenapa yaaa");
+    } else if (
+      sendToProject !== null &&
+      sendToProject.value !== previousData.projectName
+    ) {
+      let myProject = myLocal().getStorage(sendToProject.value);
+      updatedData.projectName = sendToProject.value;
+      deleteDataFunction(previousData, previousData.projectName);
+      myProject.push(updatedData);
+      myLocal().setStorage(sendToProject.value, myProject);
+      console.log("awikwok");
+    }
+
+    updateArticle(window.location.pathname);
+    modal.close();
+    modal.remove();
   }
 }
 

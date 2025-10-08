@@ -93,7 +93,7 @@ function createAddTaskForm(data = "") {
   const testForm = new Form();
   const myForm = testForm.myForm;
 
-  testForm.addInputField("text", "title", data.title);
+  testForm.addInputField("text", "title");
   testForm.addInputField("text", "description", data.description);
   testForm.addInputField("date", "Due", data.date);
 
@@ -112,7 +112,12 @@ function createAddTaskForm(data = "") {
   testForm.addDropDown("Priority: ", priorityOption, "priorityDropDown");
   testForm.addInputField("hidden", "hiddenId", data.id);
 
-  if (data !== null && data !== "" && data.safeTo !== "YourTodos") {
+  if (
+    data !== null &&
+    data !== "" &&
+    data.safeTo !== "YourTodos" &&
+    myForm.querySelector("#projectDropDown").value === "YourProject"
+  ) {
     testForm.insertInputAfter(
       myForm.querySelector("#projectDropDown"),
       createSendToProjectDropDown(data.projectName)
@@ -127,9 +132,12 @@ function createAddTaskForm(data = "") {
   );
   testForm.addButton("cancel-button", "cancelButton", "Cancel");
 
-  myForm.addEventListener("change", (event) => {
-    addToDropdownEvent(event, testForm);
-  });
+  console.log(myForm.querySelector("#projectDropDown").value);
+  myForm
+    .querySelector("#projectDropDown")
+    .addEventListener("change", function (event) {
+      addToDropdownEvent(event, testForm);
+    });
   return myForm;
 }
 
@@ -147,7 +155,6 @@ function createSendToProjectDropDown(data = null) {
   } else {
     myProjectData.forEach((element) => {
       const option = createCustomElement("option");
-
       option.addAttribute("value", element.data);
       option.addInner(element.title);
       selectProject.addChild(option.element);
@@ -155,6 +162,9 @@ function createSendToProjectDropDown(data = null) {
       if (data !== null && data === element.data) {
         selector.value = data;
       }
+      selector.addEventListener("change", function (event) {
+        selector.value = event.target.value;
+      });
     });
   }
   return selectProject.element;
