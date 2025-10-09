@@ -173,6 +173,16 @@ function editTaskButtonEvent(event, data, modal) {
     ) {
       updatedData.projectName = sendToProject.value;
       editSendToEqual(sendToProject.value, updatedData, id.value);
+    } else if (
+      previousData.safeTo === projectDropDown.value &&
+      previousData.projectName !== sendToProject.value &&
+      sendToProject !== null
+    ) {
+      const myProject = myLocal().getStorage(sendToProject.value);
+      updatedData.projectName = sendToProject.value;
+      deleteData(previousData, previousData.projectName);
+      myProject.push(updatedData);
+      myLocal().setStorage(sendToProject.value, myProject);
     }
 
     //if the user edit add to project drop down. it can send from todos to certain project or back and forth
@@ -191,17 +201,7 @@ function editTaskButtonEvent(event, data, modal) {
 
     //algorithm for change project directory, back and forth
     //still, my perfectionist is shit. :(.
-    if (
-      previousData.safeTo === projectDropDown.value &&
-      previousData.projectName !== sendToProject.value &&
-      sendToProject !== null
-    ) {
-      const myProject = myLocal().getStorage(sendToProject.value);
-      updatedData.projectName = sendToProject.value;
-      deleteData(previousData, previousData.projectName);
-      myProject.push(updatedData);
-      myLocal().setStorage(sendToProject.value, myProject);
-    }
+
     updateArticle(window.location.pathname);
     modal.close();
     modal.remove();
