@@ -3,7 +3,7 @@ import myLocal from "./myLocal";
 
 function editSendToEqual(dropDownValue, updatedData, formId) {
   myLocal().createStorage(dropDownValue);
-  updatedData.projectName = dropDownValue;
+
   let myProject = myLocal().getStorage(dropDownValue);
   myProject = myProject.map(function (element) {
     if (element.id === parseInt(formId)) {
@@ -13,14 +13,6 @@ function editSendToEqual(dropDownValue, updatedData, formId) {
       return element;
     }
   });
-  myLocal().setStorage(sendToProject.value, myProject);
-}
-
-function editSendToNotEqual(dropDownValue, previousData, updatedData) {
-  let myProject = myLocal().getStorage(dropDownValue);
-  updatedData.projectName = dropDownValue;
-  deleteData(previousData, previousData.projectName);
-  myProject.push(updatedData);
   myLocal().setStorage(dropDownValue, myProject);
 }
 
@@ -35,4 +27,4 @@ function deleteData(data, currentPath) {
   });
 }
 
-export { editSendToEqual, editSendToNotEqual, deleteData };
+export { editSendToEqual, deleteData };

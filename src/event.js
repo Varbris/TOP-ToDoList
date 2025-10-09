@@ -4,7 +4,7 @@ import myLocal from "./myLocal.js";
 import { header } from "./header.js";
 import { main } from "./main.js";
 import { editTaskModal } from "./modal.js";
-import { deleteData, editSendToEqual, editSendToNotEqual } from "./model.js";
+import { deleteData, editSendToEqual } from "./model.js";
 function navbarClickEvent(event, modal) {
   const headerContainer = document.getElementById("header");
 
@@ -162,20 +162,46 @@ function editTaskButtonEvent(event, data, modal) {
       safeTo: projectDropDown.value,
       priority: priority.value,
     };
-    //!---------- still neeed to fix
-    console.log(projectDropDown.value, sendToProject.value, title.value);
-    if (
+    //edit if the project on the same path,
+    //if user edit on todos, it will edit the same way as if user edit on certain project.
+    //still can't figure out what the best algorithm to use, but this works.
+    if (previousData.safeTo === updatedData.safeTo && sendToProject === null) {
+      editSendToEqual(projectDropDown.value, updatedData, id.value);
+    } else if (
       sendToProject !== null &&
       sendToProject.value === previousData.projectName
     ) {
+      updatedData.projectName = sendToProject.value;
       editSendToEqual(sendToProject.value, updatedData, id.value);
-    } else if (
-      sendToProject !== null &&
-      sendToProject.value !== previousData.projectName
-    ) {
-      editSendToNotEqual(sendToProject.value, previousData, updatedData);
     }
 
+    //if the user edit add to project drop down. it can send from todos to certain project or back and forth
+    //still can't figure out what the best algorithm to use on this too.
+    if (previousData.safeTo !== updatedData.safeTo) {
+      const saveTarget =
+        sendToProject === null ? projectDropDown.value : sendToProject.value;
+      const deleteTarget =
+        sendToProject === null ? previousData.projectName : previousData.safeTo;
+      const myProject = myLocal().getStorage(saveTarget);
+      deleteData(previousData, deleteTarget);
+      updatedData.projectName = saveTarget;
+      myProject.push(updatedData);
+      myLocal().setStorage(saveTarget, myProject);
+    }
+
+    //algorithm for change project directory, back and forth
+    //still, my perfectionist is shit. :(.
+    if (
+      previousData.safeTo === projectDropDown.value &&
+      previousData.projectName !== sendToProject.value &&
+      sendToProject !== null
+    ) {
+      const myProject = myLocal().getStorage(sendToProject.value);
+      updatedData.projectName = sendToProject.value;
+      deleteData(previousData, previousData.projectName);
+      myProject.push(updatedData);
+      myLocal().setStorage(sendToProject.value, myProject);
+    }
     updateArticle(window.location.pathname);
     modal.close();
     modal.remove();

@@ -70,7 +70,6 @@ function updateArticle(currentPath) {
 
 function generateYourTodos(data, currentPath, container) {
   container.innerText = "";
-  console.log(currentPath);
   if (data === null) {
     const p = document.createElement("p");
     p.innerText = "You Dont have Any Data !, just add some task dude";

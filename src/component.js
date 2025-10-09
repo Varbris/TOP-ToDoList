@@ -93,7 +93,7 @@ function createAddTaskForm(data = "") {
   const testForm = new Form();
   const myForm = testForm.myForm;
 
-  testForm.addInputField("text", "title");
+  testForm.addInputField("text", "title", data.title);
   testForm.addInputField("text", "description", data.description);
   testForm.addInputField("date", "Due", data.date);
 
