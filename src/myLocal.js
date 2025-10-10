@@ -26,5 +26,9 @@ export default function myLocal() {
     localStorage.setItem(storageName, myItem);
   };
 
-  return { createStorage, getStorage, setStorage, isExist };
+  const removeStorage = function (storageName) {
+    localStorage.removeItem(storageName);
+  };
+
+  return { createStorage, getStorage, setStorage, isExist, removeStorage };
 }

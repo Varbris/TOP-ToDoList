@@ -13,6 +13,7 @@ import {
   addTaskCancelButtonEvent,
   addTaskFormClickEvent,
   addToDropdownEvent,
+  deleteProjectButtonEvent,
   perProjectClickEvent,
 } from "./event.js";
 import Form from "./form.js";
@@ -64,6 +65,7 @@ function createYourProject() {
 function yourProjectList() {
   const projectList = createCustomElement("li");
   projectList.addAttribute("class", "nav-item");
+  projectList.addAttribute("id", "myProject");
   projectList.addClassList("my-project");
   if (myLocal().isExist("myProject")) {
     projectList.addInner("");
@@ -81,11 +83,13 @@ function yourProjectList() {
       myImg.setAttribute("id", "deleteIcon");
 
       const button = createButton("delete-project-btn", "deleteProjectBtn", "");
+      button.setAttribute("data-id", element.id);
       button.appendChild(myImg);
       li.addAttribute("class", "project-item");
       const a = createAnchor(element.title, "/myProject/" + element.data);
       li.addChild(a);
       li.addChild(button);
+      button.addEventListener("click", deleteProjectButtonEvent);
       a.addEventListener("click", perProjectClickEvent);
       myProjectList.addChild(li.element);
     });

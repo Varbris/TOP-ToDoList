@@ -3,7 +3,7 @@ import { createSendToProjectDropDown } from "./component.js";
 import myLocal from "./myLocal.js";
 import { header } from "./header.js";
 import { main } from "./main.js";
-import { editTaskModal } from "./modal.js";
+import { deleteProjectModal, editTaskModal } from "./modal.js";
 import { deleteData, editSendToEqual } from "./model.js";
 function navbarClickEvent(event, modal) {
   const headerContainer = document.getElementById("header");
@@ -127,6 +127,7 @@ function addProjectSubmitEvent(event, modal) {
   myLocal().createStorage(storageName);
   const myStorage = myLocal().getStorage(storageName);
   const myProject = {
+    id: Math.floor(Math.random() * 1000),
     title: name.value,
     data: name.value.replaceAll(" ", ""),
   };
@@ -227,6 +228,39 @@ function toDoEditButtonEvent(event, data, container) {
   }
 }
 
+function deleteProjectButtonEvent(event) {
+  if (
+    event.target.id === "deleteProjectBtn" ||
+    event.target.id === "deleteIcon"
+  ) {
+    const myModal = deleteProjectModal(event.target.dataset.id);
+    const container = document.getElementById("myProject");
+    container.appendChild(myModal);
+    myModal.showModal();
+  }
+}
+
+function deleteProjectDialogWarning(event, modal) {
+  if (event.target.id === "confirmButton") {
+    console.log(event.target.dataset.id);
+    let myProject = myLocal().getStorage("myProject");
+    let projectName;
+
+    myProject.forEach((item, index) => {
+      if (item.id === parseInt(event.target.dataset.id)) {
+        projectName = item.data;
+        myProject.splice(index, 1);
+      }
+    });
+    myLocal().removeStorage(projectName);
+    myLocal().setStorage("myProject", myProject);
+    updateArticle(window.location.pathname);
+    header();
+    main();
+    modal.close();
+    modal.remove();
+  }
+}
 export {
   navbarClickEvent,
   perProjectClickEvent,
@@ -235,4 +269,6 @@ export {
   addProjectSubmitEvent,
   editTaskFormClickEvent,
   toDoControlButtonEvent,
+  deleteProjectButtonEvent,
+  deleteProjectDialogWarning,
 };

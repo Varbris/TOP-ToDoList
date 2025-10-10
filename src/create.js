@@ -20,6 +20,10 @@ function createCustomElement(tagName) {
   const addEvent = function (eventName, whatTodo) {
     element.addEventListener(eventName, whatTodo);
   };
+
+  const addClassList = function (className) {
+    element.classList.add(className);
+  };
   return {
     element,
     addAttribute,
@@ -27,6 +31,7 @@ function createCustomElement(tagName) {
     addChild,
     addEvent,
     deleteAttribute,
+    addClassList,
   };
 }
 
