@@ -260,6 +260,8 @@ function deleteProjectDialogWarning(event, modal) {
     main();
     modal.close();
     modal.remove();
+  } else {
+    taskFormcancelButtonEvent(event, modal);
   }
 }
 export {

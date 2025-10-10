@@ -51,6 +51,8 @@ function deleteProjectModal(id) {
   const modal = document.createElement("dialog");
   const p = document.createElement("P");
   const p2 = document.createElement("P");
+  const buttonContainer = document.createElement("div");
+  buttonContainer.setAttribute("class", "warning-control");
   let button = [
     createButton("confirm-button", "confirmButton", "Confirm"),
     createButton("cancel-button", "cancelButton", "Cancel"),
@@ -63,11 +65,12 @@ function deleteProjectModal(id) {
     if (element.id === "confirmButton") {
       element.setAttribute("data-id", id);
     }
-    modal.appendChild(element);
     element.addEventListener("click", function (event) {
       deleteProjectDialogWarning(event, modal);
     });
+    buttonContainer.appendChild(element);
   });
+  modal.appendChild(buttonContainer);
   return modal;
 }
 
