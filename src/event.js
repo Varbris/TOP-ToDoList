@@ -133,6 +133,7 @@ function addProjectSubmitEvent(event, modal) {
     data: name.value.replaceAll(" ", ""),
   };
   myStorage.push(myProject);
+  myLocal().createStorage(name.value.replaceAll(" ", ""));
   myLocal().setStorage(storageName, myStorage);
   header();
   main();
