@@ -15,6 +15,7 @@ import {
   addToDropdownEvent,
   deleteProjectButtonEvent,
   perProjectClickEvent,
+  taskFormcancelButtonEvent,
 } from "./event.js";
 import Form from "./form.js";
 const { format } = require("date-fns");
@@ -187,8 +188,12 @@ function createAddProjectForm(modal) {
   const getForm = myForm.myForm;
   myForm.addInputField("text", "name");
   myForm.addButton("form-add-project", "formAddProject", "Add Project");
+  myForm.addButton("cancel-button", "cancelButton", "Cancel");
   getForm.addEventListener("submit", function (event) {
     addProjectSubmitEvent(event, modal);
+  });
+  getForm.addEventListener("click", function (event) {
+    taskFormcancelButtonEvent(event, modal);
   });
   return getForm;
 }
