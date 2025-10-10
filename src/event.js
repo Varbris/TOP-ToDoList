@@ -122,23 +122,21 @@ function taskFormcancelButtonEvent(event, modal) {
   }
 }
 function addProjectSubmitEvent(event, modal) {
-  if (event.target.id === "formAddProject") {
-    event.preventDefault();
-    const storageName = "myProject";
-    const name = document.getElementById("name");
-    myLocal().createStorage(storageName);
-    const myStorage = myLocal().getStorage(storageName);
-    const myProject = {
-      id: Math.floor(Math.random() * 1000),
-      title: name.value,
-      data: name.value.replaceAll(" ", ""),
-    };
-    myStorage.push(myProject);
-    myLocal().setStorage(storageName, myStorage);
-    header();
-    main();
-    modal.close();
-  }
+  event.preventDefault();
+  const storageName = "myProject";
+  const name = document.getElementById("name");
+  myLocal().createStorage(storageName);
+  const myStorage = myLocal().getStorage(storageName);
+  const myProject = {
+    id: Math.floor(Math.random() * 1000),
+    title: name.value,
+    data: name.value.replaceAll(" ", ""),
+  };
+  myStorage.push(myProject);
+  myLocal().setStorage(storageName, myStorage);
+  header();
+  main();
+  modal.close();
 }
 
 function editTaskButtonEvent(event, data, modal) {
