@@ -144,8 +144,6 @@ function createAddTaskForm(data = "") {
     taskButton
   );
   testForm.addButton("cancel-button", "cancelButton", "Cancel");
-
-  console.log(myForm.querySelector("#projectDropDown").value);
   myForm
     .querySelector("#projectDropDown")
     .addEventListener("change", function (event) {

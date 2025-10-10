@@ -115,7 +115,6 @@ function addTaskButtonEvent(event, modal) {
   }
 }
 function taskFormcancelButtonEvent(event, modal) {
-  console.log(event.target);
   if (event.target.id === "cancelButton") {
     event.preventDefault();
     modal.close();
@@ -246,7 +245,6 @@ function deleteProjectButtonEvent(event) {
 
 function deleteProjectDialogWarning(event, modal) {
   if (event.target.id === "confirmButton") {
-    console.log(event.target.dataset.id);
     let myProject = myLocal().getStorage("myProject");
     let projectName;
 
