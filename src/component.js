@@ -6,6 +6,7 @@ import {
   createNavLi,
 } from "./create";
 import addIcon from "./add.png";
+import deleteIcon from "./delete.png";
 import myLocal from "./myLocal.js";
 import {
   addProjectSubmitEvent,
@@ -63,11 +64,10 @@ function createYourProject() {
 function yourProjectList() {
   const projectList = createCustomElement("li");
   projectList.addAttribute("class", "nav-item");
+  projectList.addClassList("my-project");
   if (myLocal().isExist("myProject")) {
     projectList.addInner("");
 
-    const myProjectContainer = createCustomElement("div");
-    myProjectContainer.addAttribute("class", "my-project");
     const myProjectList = createCustomElement("ul");
     myProjectList.addAttribute("class", "project-list");
     myProjectList.element.innerText = "";
@@ -75,14 +75,22 @@ function yourProjectList() {
     const myProject = myLocal().getStorage("myProject");
     myProject.forEach((element) => {
       const li = createCustomElement("li");
+      const myImg = document.createElement("img");
+      myImg.setAttribute("src", deleteIcon);
+      myImg.setAttribute("class", "delete-icon-hidden");
+      myImg.setAttribute("id", "deleteIcon");
+
+      const button = createButton("delete-project-btn", "deleteProjectBtn", "");
+      button.appendChild(myImg);
       li.addAttribute("class", "project-item");
       const a = createAnchor(element.title, "/myProject/" + element.data);
       li.addChild(a);
+      li.addChild(button);
       a.addEventListener("click", perProjectClickEvent);
       myProjectList.addChild(li.element);
     });
-    myProjectContainer.addChild(myProjectList.element);
-    projectList.addChild(myProjectContainer.element);
+
+    projectList.addChild(myProjectList.element);
   }
   return projectList.element;
 }
